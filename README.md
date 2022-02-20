@@ -4,4 +4,3 @@ Includes student magazine,
 Resume of professors,
 Latest technology news,
 And other different features.
-sedbhsb
