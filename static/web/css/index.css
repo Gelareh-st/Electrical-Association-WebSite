@@ -11,7 +11,7 @@ main div {
   height: fit-content;
 }
 .text-sec {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--bg_color);
 }
 .card-sec {
   background-color: rgba(240, 240, 240, 0);
@@ -23,12 +23,13 @@ label {
   font-weight: bold;
   margin-bottom: 2rem;
 }
-.landing-txt{
-  padding:15vh 5vw 0 5vw;
+.landing-txt {
+  padding: 15vh 5vw 0 5vw;
 }
-.landing-img{
+.landing-img {
   width: 45%;
   min-width: 18rem;
+  max-height: 90vh;
   display: block;
   margin: auto;
 }
@@ -40,18 +41,18 @@ label {
   margin-top: 2rem;
   padding: 0;
 }
-.more a img{
+.more a img {
   transition: ease-out 0.5s;
 }
-.more a img:hover{
+.more a img:hover {
   transform: scale(1.4);
 }
-.notif{
+.notif {
   margin: 0;
   padding: 1rem;
   border-bottom: solid white;
 }
-.notif a:hover{
+.notif a:hover {
   color: rgb(148, 148, 148);
 }
 .note-card {
@@ -70,18 +71,18 @@ label {
   border-radius: 1rem;
   height: auto;
 }
-.note-card p{
+.note-card p {
   font-size: x-small;
   text-align: left;
 }
-.note-card:hover{
+.note-card:hover {
   transform: scale(1.1);
 }
 #events-sec {
   padding: 2rem 20vw;
 }
-.event-btn{
-  background-color:rgb(56, 56, 58) ;
+.event-btn {
+  background-color: rgb(56, 56, 58);
   box-shadow: 0 0 1rem 0 #000;
   padding: 0.5rem 3rem;
   width: fit-content;
@@ -91,9 +92,10 @@ label {
   margin: auto;
   transition: ease-out 0.5s;
 }
-.event-btn:hover{
+.event-btn:hover {
   transform: scale(1.1);
 }
+
 .member-card {
   height: max-content;
   width: 14rem;
@@ -110,31 +112,60 @@ label {
   height: auto;
   margin-bottom: 1rem;
 }
-.member-contact{
+.member-contact {
   height: fit-content;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: row-reverse;
 }
-.member-contact a img{
+.member-contact a img {
   width: 1.5rem;
   height: auto;
-  margin:0 0.3rem;
+  margin: 0 0.3rem;
 }
-.member-contact a :hover{
-transform: scale(1.1);
+.member-contact a :hover {
+  transform: scale(1.1);
 }
 .member-card:hover {
   transform: scale(1.1);
 }
-.about-text{
+.about-text {
   padding: 3rem;
 }
-.about-icons img{
+.about-icons img {
   width: 5rem;
 }
-
+#contact-uni{
+  text-align: center;
+}
+.contact-div {
+  padding: 1rem;
+  border-bottom: solid var(--p_color);
+}
+.contact-div img {
+  width: 2rem;
+  margin-left: 1rem;
+}
+.link-card {
+  width: 8rem;
+  margin: 2rem;
+  transition: ease-out 0.5s;
+}
+.link-card:hover {
+  transform: scale(1.1);
+}
+.link-card a img {
+  width: 8rem;
+}
+.link-card a p {
+  padding-top: 35%;
+  width: 8rem;
+  height: 7rem;
+  border-radius: 0.5rem;
+  border: double #fff;
+  text-align: center;
+}
 @media screen and (max-width: 580px) {
   #events-sec {
     padding: 2rem 5vw;

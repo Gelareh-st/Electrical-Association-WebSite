@@ -42,7 +42,8 @@
             </div>
             <!-- انتهای منوی هدر -->
             <div class="header-icons col-4 col-md-3 d-flex align-items-center">
-                <a href="login.html " class="col-6 col-md-12"><img src="../static/web/img/icons8-account.png" alt="" class="icon "></a>
+                <a href="login.html " class="col-6 col-md-12"><img src="../static/web/img/icons8-account.png" alt=""
+                        class="icon "></a>
                 <img src="../static/web/img/icons8-menu.svg" alt="" class="icon col-6 d-md-none" id="mobile-menu-btn">
             </div>
         </header>
@@ -191,7 +192,6 @@
                         <a href="tel:#"><img src="./../static/web/img/icons8-phone-50.png" alt=""></a>
                     </div>
                 </div>
-
                 {%for prof in profs%}
                 <div class="member-card col-12 col-md-3 d-block">
                     <img src="../static/web/img/{{prof.image}}" alt="">
@@ -211,9 +211,78 @@
             <!-- پایان قسمت اساتید -->
             <!-- ------------------------------------------------------------------------------------------------------------------ -->
             <!-- قسمت ادرس و شماره ها و ارتباط با دانشکده  -->
+            <div class="text-sec d-block" id="contact-uni">
+                <label for="contact-uni">ارتباط با دانشکده</label>
+            <div class="contact-div"><img src="../static/web/img/icons8-phone-50.png" alt=""><p>{{uni.phone}}</p></div>
+            <div class="contact-div"><img src="../static/web/img/icons8-location.png" alt=""><p>{{uni.address}}</p></div>
+            <div class="more d-block">
+                <!-- لینک به صفحه لینک ها -->
+                <abbr title="لینک ها"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
+            </div>
+            </div>
+            <!-- ------------------------------------------------------------------------------------------------------------------ -->
             <!-- قسمت کارت های لینک ها و وبسایت های مرتبط -->
+            <div class="card-sec d-flex row" id="links-sec">
+                <label for="links-sec">لینک های مورد نیاز</label>
+                <div class="link-card">
+                    <a href="https://guilan.ac.ir/" target="_blank">
+                        <img src="../static/web/img/GU-logo.svg" alt="">
+                    </a>
+                </div>
+                <div class="link-card">
+                    <a href="index.html" target="_blank">
+                        <img src="../static/web/img/EE-logo.png" alt="">
+                    </a>
+                </div>
+                <div class="link-card">
+                    <a href="https://sada.guilan.ac.ir/Hermes" target="_blank">
+                        <p>سامانه سادا</p>
+                    </a>
+                </div>
+                <div class="link-card">
+                    <a href="https://ecent2.guilan.ac.ir/" target="_blank">
+                        <p>سامانه ایسنت</p>
+                    </a>
+                </div>
+                <div class="more d-block">
+                    <!-- لینک به صفحه لینک ها -->
+                    <abbr title="لینک ها"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
+                </div>
+            </div>
+            <!-- ------------------------------------------------------------------------------------------------------------------ -->
+
         </main>
-        <footer>footer</footer>
+        <footer class="d-flex row">
+            <div class="col-12 d-flex">
+                <img src="../static/web/img/GU-logo.svg" alt="" class="footer-logo">
+                <img src="../static/web/img/EE-logo.png" alt="" class="footer-logo">
+            </div>
+            <hr>
+            <div class="col-12 d-flex row footer-div">
+                <div class="col-12 col-sm-4">
+                    <h4>دسترسی سریع</h4><br>
+                    <ul>
+                        <li><a href="#">آدرس</a></li>
+                        <li><a href="#">تلفن تماس</a></li>
+                        <li><a href="#">ایمیل</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <h4>صفحات</h4><br>
+                    <ul>
+                        <li><a href="#">صفحه اصلی</a></li>
+                        <li><a href="#">رویداد ها</a></li>
+                        <li><a href="#">ورکشاپ ها</a></li>
+                        <li><a href="#">بلاگ</a></li>
+                        <li><a href="#">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-4"></div>
+            </div>
+        </footer>
+        <div class="copy-right row">
+            <p>© کلیه حقوق سایت متعلق به انجمن علمی مهندسی برق دانشگاه گیلان می باشد .</p>
+        </div>
     </div>
     <script src="../static/web/js/app.js"></script>
 </body>

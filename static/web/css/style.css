@@ -1,41 +1,51 @@
 :root {
   --p_color: #ffffff;
   --h_color: #ffffff;
+  --bg_color: rgba(9, 22, 34, 0.699);
+  /* --header_color:rgb(1, 15, 16); */
+  --header_color: #00131b;
 }
 * {
   padding: 0;
   margin: 0;
 }
 body {
-  /* background-image: url("../img/cool-background.png");
+  background-image: url("../img/pexels-maria-orlova-4915606.jpg");
+  /* background-image: url("../img/pexels-hüseyin-hakkı-bulduk-6251835.jpg"); */
+  /* background-image: url("../img/pexels-zydeaosika-4139143.jpg"); */
+  /* background-image: url("../img/pexels-ryutaro-tsukata-6249808.jpg"); */
   background-size: cover;
-  background-repeat:no-repeat;
-  background-attachment: fixed; */
-  background-color: rgb(56, 56, 58);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 a {
   text-decoration: none;
   color: var(--p_color);
 }
-a:hover{
+a:hover {
   color: var(--p_color);
 }
 li {
   list-style: none;
 }
-p{
+p {
   color: var(--p_color);
 }
-h1,h2,h3,h4,h5,h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--h_color);
 }
 header {
   height: 10vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--header_color);
   position: sticky;
+  z-index: 1;
   top: 0;
   margin: 0;
- 
   box-shadow: 0 0 5rem 0 #000;
 }
 .header-title img {
@@ -53,47 +63,75 @@ header {
   padding: 0;
   line-height: 8vh;
 }
-.navbar-item{
+.navbar-item {
   width: 15%;
   display: flex;
   justify-content: center;
+  transition: ease-out 0.5s;
 }
-.navbar-item:hover{
-  background-image: linear-gradient(to top, #000000, #0f0f0f, #181818, #202020, #292929);}
+.navbar-item:hover {
+  background-color: rgb(17, 46, 68);
+}
 .icon {
   height: 5vh;
   width: auto;
   display: block;
   margin: auto;
 }
-#mobile-menu{
-  z-index: 1;
+#mobile-menu {
+  z-index: 2;
   height: 100vh;
   width: 0vw;
   position: fixed;
   left: 0;
   top: 0;
   transition: ease-out 0.5s;
-  background-color: red;
+  background-color: var(--header_color);
   box-shadow: 0 0 1rem 0 #000;
 }
-.mobile-navbar{
-  padding:0;
+.mobile-navbar {
+  padding: 0;
 }
-.mobile-navbar-item{
-  padding:1rem 0;
+.mobile-navbar-item {
+  padding: 1rem 0;
   border-bottom: solid #ffffff;
 }
-.mobile-navbar-item a{
+.mobile-navbar-item a {
   margin: 0 2rem;
 }
-#close-mobile-menu{
+#close-mobile-menu {
   height: 2rem;
   margin: 1rem;
 }
+
 footer {
-  height: 30vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--header_color);
+  height: fit-content;
+  padding: 0 2rem 2rem 2rem;
+}
+.footer-logo {
+  height: 7rem;
+  margin: 3rem 0;
+  margin-left: 7vw;
+}
+.footer-div div {
+  padding: 1rem;
+}
+.footer-div div ul {
+  padding: 0;
+}
+.footer-div div ul li {
+  padding: 0.3rem;
+}
+.footer-div div ul li a {
+  transition: ease-out 0.3s;
+}
+.footer-div div ul li a:hover {
+  margin-right: 0.8rem;
+}
+.copy-right {
+  text-align: center;
+  padding-top: 0.5rem;
 }
 @media screen and (max-width: 580px) {
   .header-title p {
