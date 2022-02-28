@@ -1,4 +1,4 @@
-
+from django.db import models
 from random import choices
 from tabnanny import verbose
 from tkinter import CASCADE

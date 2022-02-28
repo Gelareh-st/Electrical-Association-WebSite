@@ -1,3 +1,5 @@
+
+from django.shortcuts import render
 from ast import Lambda
 import re
 from unicodedata import category
@@ -48,3 +50,4 @@ def Masters_Create(request):
             Last_name  = request.POST["last_name"].strip().lower()
     else:
         redirect("Master_List")
+
