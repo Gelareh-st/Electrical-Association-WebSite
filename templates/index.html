@@ -1,290 +1,212 @@
-<!DOCTYPE html>
-<html dir="rtl" lang="fa-IR">
+{% extends "base.html" %}
+{% block title %}
+<title>انجمن علمی مهندسی برق دانشگاه گیلان</title>
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="../static/web/css/index.css" />
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/web/vendor/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../static/web/css/style.css" />
-    <link rel="stylesheet" href="../static/web/css/index.css" />
-    <link rel="icon" href="../static/web/img/main-logo.png">
-    <title>انجمن علمی مهندسی برق دانشگاه گیلان</title>
-</head>
-
-<body>
-
-    <div class="container-fluid">
-        <!-- ------------------------------------------------------------------------------------------------------------------ -->
-        <div class="landing-page d-flex row">
-            <div class="col-12 col-sm-6 landing-txt">
-                <h1>سلام <br> به وبسایت انجمن علمی مهندسی برق دانشگاه گیلان خوش امدید</h1>
-            </div>
-            <img src="../static/web/img/flame-renewable-energy.png" alt="" class="landing-img" class="col-12 col-sm-6">
+{% block landingpage %}
+<div class="landing-page d-flex row">
+    <div class="col-12 col-sm-6 landing-txt">
+        <h1>سلام <br> به وبسایت انجمن علمی مهندسی برق دانشگاه گیلان خوش امدید</h1>
+    </div>
+    <img src="../static/web/img/flame-renewable-energy.png" alt="" class="landing-img" class="col-12 col-sm-6">
+</div>
+{% endblock %}
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+{% block main %}
+<!-- صفحه اصلی -->
+<main>
+    <!-- قسمت اطلاعیه ها -->
+    <div class=" text-sec row" id="notifs-sec">
+        <label for="notifs-sec">اطلاعیه ها</label>
+        <!-- مثال نمایش یک اطلاعیه -->
+        <div class="notif">
+            <a href="#"> برنامه های انجمن علمی مهندسی برق برای نیمسال اول 1401</a>
         </div>
-        <!-- ------------------------------------------------------------------------------------------------------------------ -->
-        <!-- header -->
-        <header class="d-flex row">
-            <div class="header-title col-8 col-md-3 d-flex align-self-center align-items-center">
-                <img src="../static/web/img/main-logo.png" alt="">
-                <p>انجمن علمی مهندسی برق <br class="d-none d-lg-block"> دانشگاه گیلان</p>
-            </div>
-            <!-- منوی هدر -->
-            <div class="navbar d-none d-md-block col-6">
-                <ul class="navbar-list d-flex justify-content-between">
-                    <li class="navbar-item"><a href="#">صفحه اصلی</a></li>
-                    <li class="navbar-item"><a href="#">رویداد ها</a></li>
-                    <li class="navbar-item"><a href="#">بلاگ</a></li>
-                    <li class="navbar-item"><a href="#">اساتید</a></li>
-                    <li class="navbar-item"><a href="#">تیم ما</a></li>
-                    <li class="navbar-item"><a href="#">لینک ها</a></li>
-                </ul>
-            </div>
-            <!-- انتهای منوی هدر -->
-            <div class="header-icons col-4 col-md-3 d-flex align-items-center">
-                <a href="login.html " class="col-6 col-md-12"><img src="../static/web/img/icons8-account.png" alt=""
-                        class="icon "></a>
-                <img src="../static/web/img/icons8-menu.svg" alt="" class="icon col-6 d-md-none" id="mobile-menu-btn">
-            </div>
-        </header>
-        <!-- ------------------------------------------------------------------------------------------------------------------ -->
-        <!-- منوی موبایل  -->
-        <div id="mobile-menu">
-            <img src="../static/web/img/icons8-close-50.png" alt="" id="close-mobile-menu">
-            <ul class="mobile-navbar">
-                <li class="mobile-navbar-item"><a href="#">صفحه اصلی</a></li>
-                <li class="mobile-navbar-item"><a href="#">رویداد ها</a></li>
-                <li class="mobile-navbar-item"><a href="#">بلاگ</a></li>
-                <li class="mobile-navbar-item"><a href="#">اساتید</a></li>
-                <li class="mobile-navbar-item"><a href="#">تیم ما</a></li>
-                <li class="mobile-navbar-item"><a href="#">لینک ها</a></li>
-            </ul>
+        <!-- پایان مثال نمایش اطلاعیه -->
+        {%for notif in notifs%}
+        <div class="notif">
+            <a href="{{#}}"> {{notif.title}}</a>
         </div>
-        <!-- انتهای منوی موبایل -->
-        <!-- ------------------------------------------------------------------------------------------------------------------ -->
-        <!-- صفحه اصلی -->
-        <main>
-            <!-- قسمت اطلاعیه ها -->
-            <div class=" text-sec row" id="notifs-sec">
-                <label for="notifs-sec">اطلاعیه ها</label>
-                <!-- مثال نمایش یک اطلاعیه -->
-                <div class="notif">
-                    <a href="#"> برنامه های انجمن علمی مهندسی برق برای نیمسال اول 1401</a>
-                </div>
-                <!-- پایان مثال نمایش اطلاعیه -->
-                {%for notif in notifs%}
-                <div class="notif">
-                    <a href="{{#}}"> {{notif.title}}</a>
-                </div>
-                {%endfor}
+        {%endfor}
 
-                <div class="more d-block">
-                    <!-- لینک صفحه ی کلی اطلاعیه ها -->
-                    <abbr title="اطلاعیه های بیشتر"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
-                </div>
-            </div>
-            <!-- پایان قسمت اطلاعیه ها -->
-            <!-- ------------------------------------------------------------------------------------------------------------------ -->
-            <!-- قسمت یادداشت ها -->
-            <div class="card-sec row justify-content-evenly" id="notes-sec">
-                <label for="notes-sec">یادداشت ها</label>
-                <!-- مثال نمایش کارت یادداشت -->
-                <div class="note-card col-12 col-md-3 d-block">
-                    <img src="../static/web/img/image.svg" alt="">
-                    <h6>کاوش مریخ با زنبور های رباتیک</h6>
-                    <p>1400/10/22</p>
-                </div>
-                <!-- پایان مثال نمایش کارت یادداشت -->
-                <!-- چهار کارت  آخر در صفحه اصلی نمایش داده بشه -->
-                {%for note in notes%}
-                <div class="note-card col-12 col-md-3 d-block">
-                    <img src="../static/web/img/{{note.image}}" alt="">
-                    <h6>{{note.title}}</h6>
-                    <p>{{note.date}}</p>
-                </div>
-                {%endfor%}
-                <div class="more d-block">
-                    <!-- لینک ادامه به صفحه یادداشت ها -->
-                    <abbr title="یادداشت های بیشتر"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
-                </div>
-            </div>
-            <!-- پایان قسمت یادداشت ها -->
-            <!-- ------------------------------------------------------------------------------------------------------------------ -->
-            <!-- قسمت رویداد ها -->
-            <div class="text-sec row" id="events-sec">
-                <label for="events-sec">آخرین رویداد</label>
-                <!-- متن آخرین رویداد -->
-                <p>{{event.text}}</p>
-                <!-- متن روی دکمه رویداد ، مثلا ثبت نام -->
-                <a href="#" class="event-btn">{{event.button}}</a>
-                <div class="more d-block">
-                    <!-- لینک صفحه رویداد ها -->
-                    <abbr title="رویداد های قدیمی تر"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
-                </div>
-            </div>
-            <!-- پایان قسمت رویداد -->
-            <!-- ------------------------------------------------------------------------------------------------------------------ -->
-            <!-- کارت های اعضای انجمن -->
-            <div class="card-sec row justify-content-evenly" id="members-sec">
-                <label for="members-sec">اعضای انجمن</label>
-                <!-- نمایش کارت اطلاعات اعضای انجمن -->
-                <div class="member-card col-12 col-md-3 d-block">
-                    <img src="../static/web/img/profile-test.svg" alt="">
-                    <h3>فاطمه ارجمند</h3>
-                    <p>تحقیقات</p>
-                    <div class="member-contact">
-                        <a href="#"><img src="./../static/web/img/icons8-instagram.png" alt=""></a>
-                        <a href="#"><img src="./../static/web/img/icons8-linkedin.png" alt=""></a>
-                        <a href="#"><img src="./../static/web/img/icons8-phone-50.png" alt=""></a>
-                    </div>
-                </div>
-                <!-- انتهای کارت -->
-                {%for member in members %}
-                <div class="member-card col-12 col-md-3 d-block">
-                    <img src="{{member.image}}" alt="">
-                    <h3>{{member.name}}</h3>
-                    <p>{{member.role}}</p>
-                    <div class="member-contact">
-                        <!-- لینک سوشال مدیا به صورت کامل از سرور دریافت بشه -->
-                        <a href="{{member.instagram}}"><img src="./../static/web/img/icons8-instagram.png" alt=""></a>
-                        <a href="{{member.linkedin}}"><img src="./../static/web/img/icons8-linkedin.png" alt=""></a>
-                        <a href="tel:{{member.phone}}"><img src="./../static/web/img/icons8-phone-50.png" alt=""></a>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            <!-- پایان قسمت اعضای انجمن -->
-            <!-- ------------------------------------------------------------------------------------------------------------------ -->
-            <!-- قسمت درباره انجمن -->
-            <div class="text-sec d-flex row" id="about-sec">
-                <label for="about-sec" class="col-12">درباره انجمن علمی مهندسی برق دانشگاه گیلان</label>
-                <div class="col-12 col-md-6 d-block about-text">
-                    <!-- پارت اول متن  -->
-                    <p>این رویداد تخصصی در زمینه علوم کامپیوتر، با تلاش انجمن علمی دانشکده ریاضی و
-                        علوم کامپیوتر دانشگاه امیرکبیر و جمعی از دانشجویان دغدغه‌مند و پرتلاش، در هفته دوم بهمن ماه سال
-                        جاری
-                        برگزار خواهد شد.
-                    </p>
-                    <div class="about-icons d-flex justify-content-evenly">
-                        <img src="../static/web/img/icons8-transmission-tower-100.png" alt="">
-                        <img src="../static/web/img/icons8-electricity-100.png" alt="">
-                        <img src="../static/web/img/icons8-wind-turbines-100.png" alt="">
-                    </div>
-                    <!-- پارت دوم متن -->
-                    <p>
-                        هر ساله قرار است این رویداد میزبان دانشمندان، محققان و صنعتگران ایرانی از سراسر دنیا باشد.
-                        هدف از برگزاری آن، ایجاد بستری برای به اشتراک گذاری جدیدترین دستاوردها، پژوهش ها، فعالیت های
-                        صنعتی و
-                        مناظره درباره چالش های آکادمیک و صنعتی پیرامون تخصص هر یک از ارائه دهندگان خواهد بود که
-                        سخنرانی‌هایشان، دریچه‌ای متفاوت به روی پژوهشگران و علاقه مندان این حوزه، باز خواهد کرد.</p>
-                </div>
-                <img src="../static/web/img/photo.svg" alt="" class="col-12 col-md-6">
-            </div>
-            <!-- ------------------------------------------------------------------------------------------------------------------ -->
-            <!-- قسمت اساتید -->
-            <div class="card-sec row justify-content-evenly" id="prof-sec">
-                <label for="prof-sec">اساتید</label>
-                <div class="member-card col-12 col-md-3 d-block">
-                    <img src="../static/web/img/profile-test.svg" alt="">
-                    <h3>استاد نام و نام خانوادگی</h3>
-                    <div class="member-contact">
-                        <a href="mailto:#"><img src="./../static/web/img/icons8-mail-24.png" alt=""></a>
-                        <a href="tel:#"><img src="./../static/web/img/icons8-phone-50.png" alt=""></a>
-                    </div>
-                </div>
-                {%for prof in profs%}
-                <div class="member-card col-12 col-md-3 d-block">
-                    <img src="../static/web/img/{{prof.image}}" alt="">
-                    <h3>{{prof.name}}</h3>
-                    <div class="member-contact">
-                        <a href="mailto:{{prof.email}}"><img src="./../static/web/img/icons8-mail-24.png" alt=""></a>
-                        <a href="tel:{{prof.mobile}}"><img src="./../static/web/img/icons8-phone-50.png" alt=""></a>
-                    </div>
-                </div>
-                {%endfor%}
-
-                <div class="more d-block">
-                    <!-- لینک به صفحه اساتید -->
-                    <abbr title="صفحه اساتید"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
-                </div>
-            </div>
-            <!-- پایان قسمت اساتید -->
-            <!-- ------------------------------------------------------------------------------------------------------------------ -->
-            <!-- قسمت ادرس و شماره ها و ارتباط با دانشکده  -->
-            <div class="text-sec d-block" id="contact-uni">
-                <label for="contact-uni">ارتباط با دانشکده</label>
-            <div class="contact-div"><img src="../static/web/img/icons8-phone-50.png" alt=""><p>{{uni.phone}}</p></div>
-            <div class="contact-div"><img src="../static/web/img/icons8-location.png" alt=""><p>{{uni.address}}</p></div>
-            <div class="more d-block">
-                <!-- لینک به صفحه لینک ها -->
-                <abbr title="لینک ها"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
-            </div>
-            </div>
-            <!-- ------------------------------------------------------------------------------------------------------------------ -->
-            <!-- قسمت کارت های لینک ها و وبسایت های مرتبط -->
-            <div class="card-sec d-flex row" id="links-sec">
-                <label for="links-sec">لینک های مورد نیاز</label>
-                <div class="link-card">
-                    <a href="https://guilan.ac.ir/" target="_blank">
-                        <img src="../static/web/img/GU-logo.svg" alt="">
-                    </a>
-                </div>
-                <div class="link-card">
-                    <a href="index.html" target="_blank">
-                        <img src="../static/web/img/EE-logo.png" alt="">
-                    </a>
-                </div>
-                <div class="link-card">
-                    <a href="https://sada.guilan.ac.ir/Hermes" target="_blank">
-                        <p>سامانه سادا</p>
-                    </a>
-                </div>
-                <div class="link-card">
-                    <a href="https://ecent2.guilan.ac.ir/" target="_blank">
-                        <p>سامانه ایسنت</p>
-                    </a>
-                </div>
-                <div class="more d-block">
-                    <!-- لینک به صفحه لینک ها -->
-                    <abbr title="لینک ها"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
-                </div>
-            </div>
-            <!-- ------------------------------------------------------------------------------------------------------------------ -->
-
-        </main>
-        <footer class="d-flex row">
-            <div class="col-12 d-flex">
-                <img src="../static/web/img/GU-logo.svg" alt="" class="footer-logo">
-                <img src="../static/web/img/EE-logo.png" alt="" class="footer-logo">
-            </div>
-            <hr>
-            <div class="col-12 d-flex row footer-div">
-                <div class="col-12 col-sm-4">
-                    <h4>دسترسی سریع</h4><br>
-                    <ul>
-                        <li><a href="#">آدرس</a></li>
-                        <li><a href="#">تلفن تماس</a></li>
-                        <li><a href="#">ایمیل</a></li>
-                    </ul>
-                </div>
-                <div class="col-12 col-sm-4">
-                    <h4>صفحات</h4><br>
-                    <ul>
-                        <li><a href="#">صفحه اصلی</a></li>
-                        <li><a href="#">رویداد ها</a></li>
-                        <li><a href="#">ورکشاپ ها</a></li>
-                        <li><a href="#">بلاگ</a></li>
-                        <li><a href="#">درباره ما</a></li>
-                    </ul>
-                </div>
-                <div class="col-12 col-sm-4"></div>
-            </div>
-        </footer>
-        <div class="copy-right row">
-            <p>© کلیه حقوق سایت متعلق به انجمن علمی مهندسی برق دانشگاه گیلان می باشد .</p>
+        <div class="more d-block">
+            <!-- لینک صفحه ی کلی اطلاعیه ها -->
+            <abbr title="اطلاعیه های بیشتر"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
         </div>
     </div>
-    <script src="../static/web/js/app.js"></script>
-</body>
+    <!-- پایان قسمت اطلاعیه ها -->
+    <!-- ------------------------------------------------------------------------------------------------------------------ -->
+    <!-- قسمت یادداشت ها -->
+    <div class="card-sec row justify-content-evenly" id="notes-sec">
+        <label for="notes-sec">یادداشت ها</label>
+        <!-- مثال نمایش کارت یادداشت -->
+        <div class="note-card col-12 col-md-3 d-block">
+            <img src="../static/web/img/image.svg" alt="">
+            <h6>کاوش مریخ با زنبور های رباتیک</h6>
+            <p>1400/10/22</p>
+        </div>
+        <!-- پایان مثال نمایش کارت یادداشت -->
+        <!-- چهار کارت  آخر در صفحه اصلی نمایش داده بشه -->
+        {%for note in notes%}
+        <div class="note-card col-12 col-md-3 d-block">
+            <img src="../static/web/img/{{note.image}}" alt="">
+            <h6>{{note.title}}</h6>
+            <p>{{note.date}}</p>
+        </div>
+        {%endfor%}
+        <div class="more d-block">
+            <!-- لینک ادامه به صفحه یادداشت ها -->
+            <abbr title="یادداشت های بیشتر"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
+        </div>
+    </div>
+    <!-- پایان قسمت یادداشت ها -->
+    <!-- ------------------------------------------------------------------------------------------------------------------ -->
+    <!-- قسمت رویداد ها -->
+    <div class="text-sec row" id="events-sec">
+        <label for="events-sec">آخرین رویداد</label>
+        <!-- متن آخرین رویداد -->
+        <p>{{event.text}}</p>
+        <!-- متن روی دکمه رویداد ، مثلا ثبت نام -->
+        <a href="#" class="event-btn">{{event.button}}</a>
+        <div class="more d-block">
+            <!-- لینک صفحه رویداد ها -->
+            <abbr title="رویداد های قدیمی تر"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
+        </div>
+    </div>
+    <!-- پایان قسمت رویداد -->
+    <!-- ------------------------------------------------------------------------------------------------------------------ -->
+    <!-- کارت های اعضای انجمن -->
+    <div class="card-sec row justify-content-evenly" id="members-sec">
+        <label for="members-sec">اعضای انجمن</label>
+        <!-- نمایش کارت اطلاعات اعضای انجمن -->
+        <div class="member-card col-12 col-md-3 d-block">
+            <img src="../static/web/img/profile-test.svg" alt="">
+            <h3>فاطمه ارجمند</h3>
+            <p>تحقیقات</p>
+            <div class="member-contact">
+                <a href="#"><img src="./../static/web/img/icons8-instagram.png" alt=""></a>
+                <a href="#"><img src="./../static/web/img/icons8-linkedin.png" alt=""></a>
+                <a href="#"><img src="./../static/web/img/icons8-phone-50.png" alt=""></a>
+            </div>
+        </div>
+        <!-- انتهای کارت -->
+        {%for member in members %}
+        <div class="member-card col-12 col-md-3 d-block">
+            <img src="{{member.image}}" alt="">
+            <h3>{{member.name}}</h3>
+            <p>{{member.role}}</p>
+            <div class="member-contact">
+                <!-- لینک سوشال مدیا به صورت کامل از سرور دریافت بشه -->
+                <a href="{{member.instagram}}"><img src="./../static/web/img/icons8-instagram.png" alt=""></a>
+                <a href="{{member.linkedin}}"><img src="./../static/web/img/icons8-linkedin.png" alt=""></a>
+                <a href="tel:{{member.phone}}"><img src="./../static/web/img/icons8-phone-50.png" alt=""></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- پایان قسمت اعضای انجمن -->
+    <!-- ------------------------------------------------------------------------------------------------------------------ -->
+    <!-- قسمت درباره انجمن -->
+    <div class="text-sec d-flex row" id="about-sec">
+        <label for="about-sec" class="col-12">درباره انجمن علمی مهندسی برق دانشگاه گیلان</label>
+        <div class="col-12 col-md-6 d-block about-text">
+            <!-- پارت اول متن  -->
+            <p>این رویداد تخصصی در زمینه علوم کامپیوتر، با تلاش انجمن علمی دانشکده ریاضی و
+                علوم کامپیوتر دانشگاه امیرکبیر و جمعی از دانشجویان دغدغه‌مند و پرتلاش، در هفته دوم بهمن ماه سال
+                جاری
+                برگزار خواهد شد.
+            </p>
+            <div class="about-icons d-flex justify-content-evenly">
+                <img src="../static/web/img/icons8-transmission-tower-100.png" alt="">
+                <img src="../static/web/img/icons8-electricity-100.png" alt="">
+                <img src="../static/web/img/icons8-wind-turbines-100.png" alt="">
+            </div>
+            <!-- پارت دوم متن -->
+            <p>
+                هر ساله قرار است این رویداد میزبان دانشمندان، محققان و صنعتگران ایرانی از سراسر دنیا باشد.
+                هدف از برگزاری آن، ایجاد بستری برای به اشتراک گذاری جدیدترین دستاوردها، پژوهش ها، فعالیت های
+                صنعتی و
+                مناظره درباره چالش های آکادمیک و صنعتی پیرامون تخصص هر یک از ارائه دهندگان خواهد بود که
+                سخنرانی‌هایشان، دریچه‌ای متفاوت به روی پژوهشگران و علاقه مندان این حوزه، باز خواهد کرد.</p>
+        </div>
+        <img src="../static/web/img/photo.svg" alt="" class="col-12 col-md-6">
+    </div>
+    <!-- ------------------------------------------------------------------------------------------------------------------ -->
+    <!-- قسمت اساتید -->
+    <div class="card-sec row justify-content-evenly" id="prof-sec">
+        <label for="prof-sec">اساتید</label>
+        <div class="member-card col-12 col-md-3 d-block">
+            <img src="../static/web/img/profile-test.svg" alt="">
+            <h3>استاد نام و نام خانوادگی</h3>
+            <div class="member-contact">
+                <a href="mailto:#"><img src="./../static/web/img/icons8-mail-24.png" alt=""></a>
+                <a href="tel:#"><img src="./../static/web/img/icons8-phone-50.png" alt=""></a>
+            </div>
+        </div>
+        {%for prof in profs%}
+        <div class="member-card col-12 col-md-3 d-block">
+            <img src="../static/web/img/{{prof.image}}" alt="">
+            <h3>{{prof.name}}</h3>
+            <div class="member-contact">
+                <a href="mailto:{{prof.email}}"><img src="./../static/web/img/icons8-mail-24.png" alt=""></a>
+                <a href="tel:{{prof.mobile}}"><img src="./../static/web/img/icons8-phone-50.png" alt=""></a>
+            </div>
+        </div>
+        {%endfor%}
+        <div class="more d-block">
+            <!-- لینک به صفحه اساتید -->
+            <abbr title="صفحه اساتید"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
+        </div>
+    </div>
+    <!-- پایان قسمت اساتید -->
+    <!-- ------------------------------------------------------------------------------------------------------------------ -->
+    <!-- قسمت ادرس و شماره ها و ارتباط با دانشکده  -->
+    <div class="text-sec d-block" id="contact-uni">
+        <label for="contact-uni">ارتباط با دانشکده</label>
+        <div class="contact-div"><img src="../static/web/img/icons8-phone-50.png" alt="">
+            <p>{{uni.phone}}</p>
+        </div>
+        <div class="contact-div"><img src="../static/web/img/icons8-location.png" alt="">
+            <p>{{uni.address}}</p>
+        </div>
+        <div class="more d-block">
+            <!-- لینک به صفحه لینک ها -->
+            <abbr title="لینک ها"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------------------------------------------------------ -->
+    <!-- قسمت کارت های لینک ها و وبسایت های مرتبط -->
+    <div class="card-sec d-flex row" id="links-sec">
+        <label for="links-sec">لینک های مورد نیاز</label>
+        <div class="link-card">
+            <a href="https://guilan.ac.ir/" target="_blank">
+                <img src="../static/web/img/GU-logo.svg" alt="">
+            </a>
+        </div>
+        <div class="link-card">
+            <a href="index.html" target="_blank">
+                <img src="../static/web/img/EE-logo.png" alt="">
+            </a>
+        </div>
+        <div class="link-card">
+            <a href="https://sada.guilan.ac.ir/Hermes" target="_blank">
+                <p>سامانه سادا</p>
+            </a>
+        </div>
+        <div class="link-card">
+            <a href="https://ecent2.guilan.ac.ir/" target="_blank">
+                <p>سامانه ایسنت</p>
+            </a>
+        </div>
+        <div class="more d-block">
+            <!-- لینک به صفحه لینک ها -->
+            <abbr title="لینک ها"><a href="#"><img src="./../static/web/img/icons8-arrow.png" /></a></abbr>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------------------------------------------------------ -->
 
-</html>
+</main>
+{% endblock %}

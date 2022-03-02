@@ -1,97 +1,27 @@
-<!DOCTYPE html>
-<html dir="rtl" lang="fa-IR">
+{% extends "base.html" %}
+{% block title %}
+<title>ورود کاربر | انجمن علمی مهندسی برق دانشگاه گیلان</title>
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="../static/web/css/login.css" />
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/web/vendor/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../static/web/css/style.css" />
-    <link rel="stylesheet" href="../static/web/css/login.css" />
-    <link rel="icon" href="../static/web/img/main-logo.png">
-    <title>ورود کاربر | انجمن علمی مهندسی برق دانشگاه گیلان</title>
-</head>
+{% block main %}
+<main>
+    <form action="register" method="post" id="login-form">
+        <label for="login-form" id="div-label">ورود مدیر سایت</label>
+        {% csrf_token %}
 
-<body>
-    <div class="container-fluid">
-        <!-- ------------------------------------------------------------------------------------------------------------------ -->
-        <!-- header -->
-        <header class="d-flex row">
-            <div class="header-title col-8 col-md-3 d-flex align-self-center align-items-center">
-                <img src="../static/web/img/main-logo.png" alt="">
-                <p>انجمن علمی مهندسی برق <br class="d-none d-lg-block"> دانشگاه گیلان</p>
-            </div>
-            <!-- منوی هدر -->
-            <div class="navbar d-none d-md-block col-6">
-                <ul class="navbar-list d-flex justify-content-between">
-                    <li class="navbar-item"><a href="index.html">صفحه اصلی</a></li>
-                    <li class="navbar-item"><a href="#">رویداد ها</a></li>
-                    <li class="navbar-item"><a href="#">بلاگ</a></li>
-                    <li class="navbar-item"><a href="#">اساتید</a></li>
-                    <li class="navbar-item"><a href="#">تیم ما</a></li>
-                    <li class="navbar-item"><a href="#">لینک ها</a></li>
-                </ul>
-            </div>
-            <!-- انتهای منوی هدر -->
-            <div class="header-icons col-4 col-md-3 d-flex align-items-center">
-                <a href="login.html " class="col-6 col-md-12"><img src="../static/web/img/icons8-account.png" alt=""
-                        class="icon "></a>
-                <img src="../static/web/img/icons8-menu.svg" alt="" class="icon col-6 d-md-none" id="mobile-menu-btn">
-            </div>
-        </header>
-        <!-- ------------------------------------------------------------------------------------------------------------------ -->
-      <main>
-        <form action="register" method="post" id="login-form">
-          <label for="login-form" id="div-label">ورود مدیر سایت</label>
-            {% csrf_token %}
-            
-            <input type="text" name="username" placeholder="نام کاربری" id="useranme">
-            <input type="password" name="password1" placeholder="رمز عبور" id="password">
-            <input type="Submit" value="ورود" id="submit-btn">
+        <input type="text" name="username" placeholder="نام کاربری" id="useranme">
+        <input type="password" name="password1" placeholder="رمز عبور" id="password">
+        <input type="Submit" value="ورود" id="submit-btn">
 
-        </form>
+    </form>
 
-        <div>
-            % for message in messages %
-            <h3> {{message}} </h3>
-            {% endfor %}
-        </div>
-    </main>
-        <!-- ------------------------------------------------------------------------------------------------------------------ -->
-
-        <footer class="d-flex row">
-            <div class="col-12 d-flex">
-                <img src="../static/web/img/GU-logo.svg" alt="" class="footer-logo">
-                <img src="../static/web/img/EE-logo.png" alt="" class="footer-logo">
-            </div>
-            <hr>
-            <div class="col-12 d-flex row footer-div">
-                <div class="col-12 col-sm-4">
-                    <h4>دسترسی سریع</h4><br>
-                    <ul>
-                        <li><a href="#">آدرس</a></li>
-                        <li><a href="#">تلفن تماس</a></li>
-                        <li><a href="#">ایمیل</a></li>
-                    </ul>
-                </div>
-                <div class="col-12 col-sm-4">
-                    <h4>صفحات</h4><br>
-                    <ul>
-                        <li><a href="#">صفحه اصلی</a></li>
-                        <li><a href="#">رویداد ها</a></li>
-                        <li><a href="#">ورکشاپ ها</a></li>
-                        <li><a href="#">بلاگ</a></li>
-                        <li><a href="#">درباره ما</a></li>
-                    </ul>
-                </div>
-                <div class="col-12 col-sm-4"></div>
-            </div>
-        </footer>
-        <div class="copy-right row">
-            <p>© کلیه حقوق سایت متعلق به انجمن علمی مهندسی برق دانشگاه گیلان می باشد .</p>
-        </div>
+    <div>
+        % for message in messages %
+        <h3> {{message}} </h3>
+        {% endfor %}
     </div>
-
-</body>
-
-</html>
+</main>
+{% endblock %}
