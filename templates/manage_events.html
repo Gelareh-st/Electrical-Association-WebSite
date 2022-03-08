@@ -1,0 +1,45 @@
+{% extends "manager_base.html" %}
+{% block title %}
+<title>مدیریت رویداد ها | انجمن علمی مهندسی برق دانشگاه گیلان</title>
+{% endblock %}
+{% block main %}
+<div class="main-sec d-flex row align-content-start justify-content-between">
+    <label for="events-table" class="col-9">مدیریت رویداد ها</label>
+    <a href="#add-event" class="new-btn col-3 d-flex">
+        <p>رویداد جدید</p>
+        <img src="../static/web/img/icons8-add-50.png" alt="">
+    </a>
+    <table id="events-table" class="col-12">
+        <tr>
+            <th>عنوان</th>
+            <th>نویسنده</th>
+            <th>تاریخ</th>
+            <th class="icon-td">مشاهده</th>
+            <th class="icon-td">ویرایش</th>
+            <th class="icon-td">حذف</th>
+        </tr>
+        {% for event in events %}
+        <tr>
+            <td class="txt-td">{{event.title}}</td>
+            <td class="txt-td">{{event.writer}}</td>
+            <td class="txt-td">{{event.date}}</td>
+            <td class="icon-td see"><button><img src="../static/web/img/icons8-eye-50.png" alt=""></button></td>
+            <td class="icon-td edit"><button><img src="../static/web/img/icons8-edit-50.png" alt=""></button></td>
+            <td class="icon-td delete"><button><img src="../static/web/img/icons8-trash-can-50.png" alt=""></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <label for="add-event">رویداد جدید </label>
+    <form action="" class="col-12" id="add-event">
+        <p>عنوان رویداد :</p>
+        <input type="text" name="" id="">
+        <p>متن رویداد :</p>
+        <textarea name="" id="" cols="25" rows="1"></textarea>
+        <p>متن دکمه رویداد :</p>
+        <input type="text" name="" id="">
+        <br><br>
+        <input type="submit" value="ذخیره">
+    </form>
+</div>
+{% endblock %}

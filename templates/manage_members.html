@@ -1,0 +1,71 @@
+{% extends "manager_base.html" %}
+{% block title %}
+<title>مدیریت انجمن | انجمن علمی مهندسی برق دانشگاه گیلان</title>
+{% endblock %}
+{% block main %}
+<div class="main-sec d-flex row align-content-start justify-content-between">
+    <label for="about-table" class="col-12">مدیریت انجمن</label>
+    <table id="about-table" class="col-12">
+        <tr>
+            <th></th>
+            <th class="icon-td">مشاهده</th>
+            <th class="icon-td">ویرایش</th>
+        </tr>
+        <tr>
+            <td class="txt-td">درباره انجمن</td>
+            <td class="icon-td see"><button><img src="../static/web/img/icons8-eye-50.png" alt=""></button></td>
+            <td class="icon-td edit"><button><img src="../static/web/img/icons8-edit-50.png" alt=""></button></td>
+        </tr>
+    </table>
+    <label for="members-table" class="col-9">مدیریت اعضای انجمن</label>
+    <a href="#add-member" class="new-btn col-3 d-flex">
+        <p>عضو جدید</p>
+        <img src="../static/web/img/icons8-add-50.png" alt="">
+    </a>
+    <table id="members-table" class="col-12">
+        <tr>
+            <th>نام </th>
+            <th>نقش</th>
+            <th class="icon-td">مشاهده</th>
+            <th class="icon-td">ویرایش</th>
+            <th class="icon-td">حذف</th>
+        </tr>
+        {% for member in members %}
+        <tr>
+            <td class="txt-td">{{member.name}}</td>
+            <td class="txt-td">{{member.role}}</td>
+            <td class="icon-td see"><button><img src="../static/web/img/icons8-eye-50.png" alt=""></button></td>
+            <td class="icon-td edit"><button><img src="../static/web/img/icons8-edit-50.png" alt=""></button></td>
+            <td class="icon-td delete"><button><img src="../static/web/img/icons8-trash-can-50.png" alt=""></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <label for="add-member">عضو جدید </label>
+    <form action="" class="col-12" id="add-member">
+        <p>نام و نام خانوادگی : </p>
+        <input type="text" name="" id="">
+        <p>نقش : </p>
+        <input type="text" name="" id="">
+        <p>عکس (url) : </p>
+        <input type="text" name="" id="">
+        <p>ایمیل :</p>
+        <input type="email" name="" id="">
+        <p>تلگرام : </p>
+        <input type="text" name="" id="">
+        <p>لینکدین : </p>
+        <input type="text" name="" id="">
+        <br><br>
+        <input type="submit" value="ذخیره">
+    </form>
+    <label for="edit-about">ویرایش مشخصات انجمن</label>
+    <form action="" id="edit-about">
+        <p>پاراگراف اول درباره انجمن : </p>
+        <textarea name="" id="" cols="25" rows="1"></textarea>
+        <p>پاراگراف دوم درباره انجمن : </p>
+        <textarea name="" id="" cols="25" rows="1"></textarea>
+        <br><br>
+        <input type="submit" value="ذخیره">
+    </form>
+</div>
+{% endblock %}

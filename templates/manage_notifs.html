@@ -1,0 +1,43 @@
+{% extends "manager_base.html" %}
+{% block title %}
+<title>مدیریت اطلاعیه ها | انجمن علمی مهندسی برق دانشگاه گیلان</title>
+{% endblock %}
+{% block main %}
+<div class="main-sec d-flex row align-content-start justify-content-between">
+    <label for="notifs-table" class="col-9">مدیریت اطلاعیه ها</label>
+    <a href="#add-notif" class="new-btn col-3 d-flex">
+        <p>اطلاعیه جدید</p>
+        <img src="../static/web/img/icons8-add-50.png" alt="">
+    </a>
+    <table id="notifs-table" class="col-12">
+        <tr>
+            <th>عنوان</th>
+            <th>نویسنده</th>
+            <th>تاریخ</th>
+            <th class="icon-td">مشاهده</th>
+            <th class="icon-td">ویرایش</th>
+            <th class="icon-td">حذف</th>
+        </tr>
+        {% for notif in notifs %}
+        <tr>
+            <td class="txt-td">{{notif.title}}</td>
+            <td class="txt-td">{{notif.writer}}</td>
+            <td class="txt-td">{{notif.date}}</td>
+            <td class="icon-td see"><button><img src="../static/web/img/icons8-eye-50.png" alt=""></button></td>
+            <td class="icon-td edit"><button><img src="../static/web/img/icons8-edit-50.png" alt=""></button></td>
+            <td class="icon-td delete"><button><img src="../static/web/img/icons8-trash-can-50.png" alt=""></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <label for="add-notif">اطلاعیه جدید </label>
+    <form action="" class="col-12" id="add-notif">
+        <p>عنوان اطلاعیه : </p>
+        <input type="text" name="" id="">
+        <p>متن اطلاعیه : </p>
+        <textarea name="" id="" cols="25" rows="1"></textarea>
+        <br><br>
+        <input type="submit" value="ذخیره">
+    </form>
+</div>
+{% endblock %}
