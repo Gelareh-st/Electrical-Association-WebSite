@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa-IR">
+
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/web/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../static/web/css/style.css" />
+    <link rel="stylesheet" href="../static/web/css/manager.css" />
+    <link rel="icon" href="../static/web/img/main-logo.png">
+    {% endblock %}
+    {% block title %}{% endblock %}
+</head>
+
+<body>
+    <div class="container-fluid">
+        <header class="d-flex row">
+            <div class="col-3">
+                <img src="../static/web/img/icons8-close-50.png" alt="" id="manage-menu-btn" class="icon open">
+            </div>
+            <div class=" col-6 d-flex justify-content-center align-content-center">
+                <div class="header-title d-flex align-self-center align-items-center">
+                    <img src="../static/web/img/main-logo.png" alt="">
+                    <p>انجمن علمی مهندسی برق <br class="d-none d-lg-block"> دانشگاه گیلان</p>
+                </div>
+            </div>
+            <div class="col-3 manager-name" id="dropdown">
+                <p>{{نام نام خانوادگی}}
+                    <img src="../static/web/img/icons8-arrow.png" alt="" style="width:1.5rem;">
+                </p>
+                <div id="dropdown-menu">
+                    <ul>
+                        <li><a href="#">میز کار </a></li>
+                        <li><a href="#"> خروج </a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div id="side-sec">
+            <ul id="manage-nav">
+                <li><a href="#">میز کار</a></li>
+                <li><a href="#">رویداد ها</a></li>
+                <li><a href="#">اطلاعیه ها</a></li>
+                <li><a href="#">یادداشت ها</a></li>
+                <li><a href="#">دانشگاه</a></li>
+                <li><a href="#">انجمن</a></li>
+                <li><a href="#">اساتید</a></li>
+                <li><a href="#">لینک ها</a></li>
+            </ul>
+        </div>
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+        <footer></footer>
+    </div>
+    <script src="../static/web/js/manager.js"></script>
+</body>
+
+</html>
