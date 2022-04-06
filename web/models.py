@@ -5,7 +5,7 @@ from tkinter import CASCADE
 from turtle import title
 from unicodedata import category
 from django.db import models
-from numpy import choose, integer
+
 
 """
 "Soheil Mehrizi"
@@ -50,9 +50,7 @@ class People(models.Model):
     Picture_URL = models.URLField(verbose_name="Picture",
                                   max_length=200)
     EmailAddress= models.EmailField(verbose_name="Email")
-    Telegram_ID = models.URLField(max_length=80, blank=True)
     LinkedIn    = models.URLField(max_length=80, blank = True)
-    Instagram   = models.URLField(max_length=80, blank=True)
     GitHub      = models.URLField(max_length=80, blank=True)
     def __str__(self):
         return f"{self.id}:{self.first_name}_{self.last_name}/{self.category}"
@@ -64,9 +62,9 @@ Personal Information related to People Model via Foriegn Key
 """
 class Master(People):
     ID      = models.OneToOneField(People,
-                                         on_delete=CASCADE,to_field="id")
-    Resume_Link        = models.models.URLField(verbose_name = "Resume Link"
-                                         , max_length=200,)
+                                         on_delete=models.CASCADE)
+    Resume_Link        = models.URLField(verbose_name = "Resume Link",
+                                          max_length=200,)
     Performance_result = models.IntegerField(verbose_name="Performance",
                                              choices=Performance_choices)
     def __str__(self):
@@ -85,6 +83,6 @@ class Courses(models.Model):
 
 
 class Members(People):
-    Member_id = models.OneToOneField(People, on_delete=CASCADE, to_field="id")
+    Member_id = models.OneToOneField(People, on_delete=models.CASCADE, to_field="id")
     def __str__(self):
         f"{self.id}/{self.first_name},{self.last_name}/{self.category}"
