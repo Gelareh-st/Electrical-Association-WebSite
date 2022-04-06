@@ -61,8 +61,8 @@ Masters Information`s such as Resume Link/
 Personal Information related to People Model via Foriegn Key
 """
 class Master(People):
-    ID      = models.OneToOneField(People,
-                                         on_delete=models.CASCADE)
+  #  ID      = models.OneToOneField(People,
+   #                                      on_delete=models.CASCADE)
     Resume_Link        = models.URLField(verbose_name = "Resume Link",
                                           max_length=200,)
     Performance_result = models.IntegerField(verbose_name="Performance",
@@ -83,6 +83,6 @@ class Courses(models.Model):
 
 
 class Members(People):
-    Member_id = models.OneToOneField(People, on_delete=models.CASCADE, to_field="id")
+    #Member = models.OneToOneField(People, on_delete=models.CASCADE)
     def __str__(self):
         f"{self.id}/{self.first_name},{self.last_name}/{self.category}"

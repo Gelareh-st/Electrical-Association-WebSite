@@ -1,6 +1,7 @@
 import imp
 from django.shortcuts import render
-from models import Use_link
+
+from links.models import Use_link
 
 # Create your views here.
 

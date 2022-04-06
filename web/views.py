@@ -1,14 +1,14 @@
 
+from json import JSONEncoder
+from django.http import JsonResponse
 from django.shortcuts import render
-from ast import Lambda
-import re
 from unicodedata import category
 from django.shortcuts import redirect, render
 
 from web.models import Master, People
 #returns Home Page And its Contents Data
 def Home(request):
-    pass
+    return JsonResponse({"status":200}, encoder=JSONEncoder)
 
 #-------------------------------------------------------------
 """Masters Control And Render View
@@ -36,7 +36,7 @@ def Masters(request, master):
         return render(request, "Master_List.html", context)
 #---------------------------------------------------------------------
 """Get The Master`s Information And Push in to Data Base"""
-def Masters_Create(request):
+def Add_Master(request):
     if request.method == "POST":
         First_name = request.POST["first_name"].strip().lower()
         Last_name  = request.POST["last_name"].strip().lower()
@@ -44,6 +44,7 @@ def Masters_Create(request):
                                 last_name = f"{Last_name}"
                                 ):
             context = {"Message": "This Object is allready exist"}
+            #must configured
             return render(request, "web\Master.html", context)
         else:
             First_name = request.POST["first_name"].strip().lower()
@@ -51,3 +52,17 @@ def Masters_Create(request):
     else:
         redirect("Master_List")
 
+def Edit_Master(request, id):
+    if request.method == "POST":
+        pass
+    else:
+        master = Master.objects.get(ID = id)
+        context ={
+            "f_name"       : master.first_name,
+            "l_name"       : master.last_name,
+            "EmailAddress" : master.EmailAddress,
+            "LinkedIn"     : master.LinkedIn,
+            "GitHub"       : master.GitHub,
+            "Resume_Link"  : master.Rumees_Link,
+        }
+        return render(request, "base.html" , context)

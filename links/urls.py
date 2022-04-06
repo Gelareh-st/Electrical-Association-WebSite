@@ -1,5 +1,6 @@
 from django.urls import path
-from . import views
+
+from links import views
 
 urlpatterns=[
     path('useful_link',views.useful_link,name='useful_link'),
