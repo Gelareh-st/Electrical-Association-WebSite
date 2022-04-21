@@ -87,3 +87,8 @@ local_settings.py
 migrations/
 .env
 db.sqlite3
+
+# Only for Development only
+# **/migrations/**
+# !**/migrations
+# !**/migrations/__init__.py
