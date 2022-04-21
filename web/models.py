@@ -64,7 +64,7 @@ class Master(People):
   #  ID      = models.OneToOneField(People,
    #                                      on_delete=models.CASCADE)
     Resume_Link        = models.URLField(verbose_name = "Resume Link",
-                                          max_length=200,)
+                                         max_length=200,)
     Performance_result = models.IntegerField(verbose_name="Performance",
                                              choices=Performance_choices)
     def __str__(self):
@@ -72,17 +72,29 @@ class Master(People):
 
 #prerequisite must get from itself
 class Courses(models.Model):
-    id           = models.AutoField(verbose_name="ID", primary_key=True)
-    title        = models.CharField(verbose_name="Tilte", max_length=15)
-    description  = models.CharField(verbose_name="Description", max_length=150)
+    id           = models.AutoField(verbose_name="ID",
+                                    primary_key=True)
+    title        = models.CharField(verbose_name="Tilte",
+                                    max_length=15)
+    description  = models.CharField(verbose_name="Description",
+                                    max_length=150)
     Unit         = models.IntegerField(verbose_name="Unit")
-    Prerequisite = models.CharField(verbose_name="prerequisite", max_length=15)
-    Simultaneous = models.CharField(verbose_name="Simultaneous", max_length=15)
+    Prerequisite = models.CharField(verbose_name="prerequisite",
+                                    max_length=15)
+    Simultaneous = models.CharField(verbose_name="Simultaneous",
+                                    max_length=15)
     def __str__(self):
         return f"{self.id};{self.title};{self.Unit}"
 
-
+class given_Course_By_Master(models.Model):
+    course = models.OneToOneField(Courses,
+                                 verbose_name="course",
+                                 on_delete=models.CASCADE)
+    master = models.OneToOneField(Master,
+                                 verbose_name="Master",
+                                 on_delete=models.CASCADE)
+    def __str__(self):
+        return f"{self.master.first_name} {self.master.first_name} )= {self.course.title}"
 class Members(People):
-    #Member = models.OneToOneField(People, on_delete=models.CASCADE)
     def __str__(self):
         f"{self.id}/{self.first_name},{self.last_name}/{self.category}"
