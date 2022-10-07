@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, re_path
+
+from web.models import Master, Members
 from . import views
 
 urlpatterns = [
@@ -36,6 +38,8 @@ urlpatterns = [
     path("Manage/Member/del_Member/<int:pk>", views.delete_Member.as_view(),
          name = "del_Member"),
 
-    path("Edit_Master/<int:pk>", views.Update_Master.as_view(),
+    path("Edit_Member/<int:pk>", views.Update_People.as_view(), kwargs = dict(model = Members),
+         name = "Edit_Member"),
+    path("Edit_Master/<int:pk>", views.Update_People.as_view(), kwargs = dict(model = Master),
          name = "Edit_Master"),
 ]

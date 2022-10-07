@@ -121,22 +121,32 @@ class delete_Master(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteV
     success_url = reverse_lazy("Manage_Master")
     permission_required = "Master.delete_post"
     success_message = {"message":"object_deleted_successfuly"}
-
-class Update_Master(LoginRequiredMixin ,generic.TemplateView):
+    
+#Forms for define the form that we using    
+forms = {"People_Form": PeopleForm(), "Master_Form": MasterForm(), "Member_Form": MemberForm()}
+class Update_People(LoginRequiredMixin ,generic.TemplateView):
     template_name = "manage_members.html"
     People_Form = PeopleForm()
     Master_Form = MasterForm()
+
     def get_context_data(self, **kwargs):
-        
+        child_initials = {}
+        model = kwargs["model"]
+        child_form = forms[f"{model.__name__}_Form"]
+        print(child_form)
         context = super().get_context_data(**kwargs)
-        object = Master.objects.get(id = kwargs['pk'])
-        context['Items'] = Master.objects.all()
-        context['Master_Form'] = MasterForm(initial = {'Resume_Link':object.Resume_Link})
+        object = model.objects.get(id = kwargs['pk'])
+        if model.__name__== "Master":
+            child_initials = {'Resume_Link':object.Resume_Link}
+        else:
+            child_initials = {"position": object.position}
+        context['Items'] = model.objects.all()
+        context[f'{model.__name__}_Form'] = child_form(initial = {'Resume_Link':object.Resume_Link})
         context['People_Form'] = PeopleForm(initial={'name':object.Info.name, 'EmailAddress':object.Info.EmailAddress, 'Picture_URL':object.Info.Picture_URL,
-                                                            'LinkedIn':object.Info.LinkedIn, 'GitHub':object.Info.GitHub})
+                                                       'LinkedIn':object.Info.LinkedIn, 'GitHub':object.Info.GitHub})
         context['courses'] = Courses.objects.all()
-        context['Delete_Address'] = "del_Master"
-        context['Edit_Address'] = "Edit_Master"
+        context['Delete_Address'] = f"del_{model.__name__}"
+        context['Edit_Address'] = f"Edit_{model.__name__}"
         context['Edit'] = True
         return context
     def post(self, request,  **kwargs):
