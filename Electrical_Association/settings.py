@@ -56,8 +56,9 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'Electrical_Association.urls'
 
 TEMPLATES = [
-    {   'DIRS' :[],
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
