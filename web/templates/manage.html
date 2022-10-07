@@ -1,0 +1,60 @@
+{% extends "manager_base.html" %}
+{% block title %}
+<title>مدیریت | انجمن علمی مهندسی برق دانشگاه گیلان</title>
+{% endblock %}
+{% block main %}
+<div class="main-sec d-flex row justify-content-evenly" id="">
+    <label for="manager-workspace" class="col-12">MANAGER</label>
+    <!--Dont Repeat YourSelf :) I Love Django-->
+    {% for pattern in url_patterns %}
+    <div class="card col-12 col-md-6 col-lg-2">
+        <a href="{% url pattern %}">
+            <!--events-->
+            <img src="../static/web/img/icons8_{{pattern}}.png" alt="{{pattern}}">
+            <h3 class="card-title">{{pattern}}</h3>
+        </a>
+    </div>
+    {% endfor %}
+    
+</div>
+<button class="btn btn-info" method = "post" type="submit">
+{% endblock %}
+
+<!--
+
+    <div class="card col-12 col-md-6 col-lg-2">
+        <a href="#">
+            <img src="../static/web/img/icons8-art-track-100.png" alt="">
+            <h3 class="card-title">یادداشت ها</h3>
+        </a>
+    </div>
+    <div class="card col-12 col-md-6 col-lg-2">
+        <a href="#">
+            <img src="../static/web/img/icons8-link-100.png" alt="">
+            <h3 class="card-title">لینک ها</h3>
+        </a>
+    </div>
+    <div class="card col-12 col-md-6 col-lg-2">
+        <a href="#">
+            <img src="../static/web/img/icons8-blog-100.png" alt="">
+            <h3 class="card-title">نشریه</h3>
+        </a>
+    </div>
+    <div class="card col-12 col-md-6 col-lg-2">
+        <a href="#">
+            <img src="../static/web/img/icons8-city-block-100.png" alt="">
+            <h3 class="card-title">دانشگاه</h3>
+        </a>
+    </div>
+    <div class="card col-12 col-md-6 col-lg-2">
+        <a href="#">
+            <img src="../static/web/img/icons8-queue-50.png" alt="">
+            <h3 class="card-title">انجمن</h3>
+        </a>
+    </div>
+    <div class="card col-12 col-md-6 col-lg-2">
+        <a href="#">
+            <img src="../static/web/img/icons8-administrator-male-100.png" alt="">
+            <h3 class="card-title">اساتید</h3>
+        </a>
+    </div>-->
