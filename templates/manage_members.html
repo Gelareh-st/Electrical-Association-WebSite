@@ -3,6 +3,7 @@
 <title>مدیریت انجمن | انجمن علمی مهندسی برق دانشگاه گیلان</title>
 {% endblock %}
 {% block main %}
+
 <div class="main-sec d-flex row align-content-start justify-content-between">
     <label for="about-table" class="col-12">مدیریت انجمن</label>
     <table id="about-table" class="col-12">
@@ -22,42 +23,67 @@
         <p>عضو جدید</p>
         <img src="../static/web/img/icons8-add-50.png" alt="">
     </a>
+    {% for message in messages %}
+    <div class="text-center alert alert-{{ message.tags }}">
+        {{ message|safe }}
+    </div>
+    {% endfor %}
     <table id="members-table" class="col-12">
         <tr>
             <th>نام </th>
             <th>نقش</th>
-            <th class="icon-td">مشاهده</th>
-            <th class="icon-td">ویرایش</th>
-            <th class="icon-td">حذف</th>
+            <th class="icon-td">تاریخ ساخت</th>
+            
+            {% if not Edit %}
+                <th class="icon-td" >ویرایش</th>
+                <th class="icon-td">حذف</th>        
+            {% endif %}
+        
         </tr>
-        {% for member in members %}
+
+        </div>
+        {% for item in Items %}
         <tr>
-            <td class="txt-td">{{member.name}}</td>
-            <td class="txt-td">{{member.role}}</td>
-            <td class="icon-td see"><button><img src="../static/web/img/icons8-eye-50.png" alt=""></button></td>
-            <td class="icon-td edit"><button><img src="../static/web/img/icons8-edit-50.png" alt=""></button></td>
-            <td class="icon-td delete"><button><img src="../static/web/img/icons8-trash-can-50.png" alt=""></button>
-            </td>
-        </tr>
+            <td class="txt-td">{{item.Info.name}}</td>
+            <td class="txt-td">{{item.Info.category}}</td>
+            <td class="txt-td">{{item.Info.created_date.date}}</td>
+            <td class="txt-td">{{item.position}}</td>
+            <td class="icon-td see">
+                    <button type="submit">
+                        <img src="../static/web/img/icons8-eye-50.png" alt="">
+                    </button>
+        </td>
+        {% if not Edit %}
+        <td class="icon-td edit"><button>
+            <a href="{% url Edit_Address item.id %}">
+                    <img src="../static/web/img/icons8-edit-50.png" alt="">
+            </a>
+        </td> 
+        <td class="icon-td delete">
+            <!--must optimize for both objects Masters and Members-->
+            <form method = "post" action="{% url Delete_Address item.id %}">
+                {% csrf_token %}
+                <button type="submit">
+                    <img src="../static/web/img/icons8-trash-can-50.png" alt="">
+                </button>
+            </form>
+        </td>
+        
+    
+        {% endif %}
+    </tr>
         {% endfor %}
     </table>
     <label for="add-member">عضو جدید </label>
-    <form action="" class="col-12" id="add-member">
-        <p>نام و نام خانوادگی : </p>
-        <input type="text" name="" id="">
-        <p>نقش : </p>
-        <input type="text" name="" id="">
-        <p>عکس (url) : </p>
-        <input type="text" name="" id="">
-        <p>ایمیل :</p>
-        <input type="email" name="" id="">
-        <p>تلگرام : </p>
-        <input type="text" name="" id="">
-        <p>لینکدین : </p>
-        <input type="text" name="" id="">
-        <br><br>
-        <input type="submit" value="ذخیره">
+    <!--Adding A Member Form-->
+    <div>
+    <form method="post" action = "" class="form-control">{% csrf_token %}
+        {{People_Form}}
+        {{Master_Form}} 
+        {{Member_Form}}
+        <input type="submit" value="Save">
     </form>
+    </div>
     <label for="edit-about">ویرایش مشخصات انجمن</label>
     <form action="" id="edit-about">
         <p>پاراگراف اول درباره انجمن : </p>

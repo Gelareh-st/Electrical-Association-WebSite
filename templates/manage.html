@@ -4,19 +4,24 @@
 {% endblock %}
 {% block main %}
 <div class="main-sec d-flex row justify-content-evenly" id="">
-    <label for="manager-workspace" class="col-12">میز کار مدیر</label>
+    <label for="manager-workspace" class="col-12">MANAGER</label>
+    <!--Dont Repeat YourSelf :) I Love Django-->
+    {% for pattern in url_patterns %}
     <div class="card col-12 col-md-6 col-lg-2">
-        <a href="#">
-            <img src="../static/web/img/icons8-events-100.png" alt="">
-            <h3 class="card-title">رویداد ها</h3>
+        <a href="{% url pattern %}">
+            <!--events-->
+            <img src="../static/web/img/icons8_{{pattern}}.png" alt="{{pattern}}">
+            <h3 class="card-title">{{pattern}}</h3>
         </a>
     </div>
-    <div class="card col-12 col-md-6 col-lg-2">
-        <a href="#">
-            <img src="../static/web/img/icons8-alarm-100.png" alt="">
-            <h3 class="card-title">اطلاعیه ها</h3>
-        </a>
-    </div>
+    {% endfor %}
+    
+</div>
+<button class="btn btn-info" method = "post" type="submit">
+{% endblock %}
+
+<!--
+
     <div class="card col-12 col-md-6 col-lg-2">
         <a href="#">
             <img src="../static/web/img/icons8-art-track-100.png" alt="">
@@ -52,6 +57,4 @@
             <img src="../static/web/img/icons8-administrator-male-100.png" alt="">
             <h3 class="card-title">اساتید</h3>
         </a>
-    </div>
-</div>
-{% endblock %}
+    </div>-->

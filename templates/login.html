@@ -3,7 +3,7 @@
 <title>ورود کاربر | انجمن علمی مهندسی برق دانشگاه گیلان</title>
 {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="../static/web/css/login.css" />
+<link rel="stylesheet" href="static/web/css/login.css" />
 {% endblock %}
 
 {% block main %}
@@ -19,7 +19,7 @@
     </form>
 
     <div>
-        % for message in messages %
+        {% for message in messages %}
         <h3> {{message}} </h3>
         {% endfor %}
     </div>
