@@ -1,0 +1,22 @@
+
+.link-card {
+    display: block;
+    margin: auto;
+    margin-bottom: 2rem;
+    width: 12rem;
+    transition: ease-out 0.5s;
+  }
+  .link-card:hover {
+    transform: scale(1.1);
+  }
+  .link-card a img {
+    width: 8rem;
+  }
+  .link-card a p {
+    padding-top: 35%;
+    width: 8rem;
+    height: 7rem;
+    border-radius: 0.5rem;
+    border: double #fff;
+    text-align: center;
+  }

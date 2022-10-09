@@ -18,7 +18,7 @@
             <td class="icon-td edit"><button><img src="../static/web/img/icons8-edit-50.png" alt=""></button></td>
         </tr>
     </table>
-    <label for="members-table" class="col-9">مدیریت اعضای انجمن</label>
+    <label for="members-table" class="col-9">{{title}}</label>
     <a href="#add-member" class="new-btn col-3 d-flex">
         <p>عضو جدید</p>
         <img src="../static/web/img/icons8-add-50.png" alt="">
@@ -80,7 +80,7 @@
     <form method="post" action = "" class="form-control">{% csrf_token %}
         {{People_Form}}
         {{Master_Form}} 
-        {{Member_Form}}
+        {{Members_Form}}
         <input type="submit" value="Save">
     </form>
     </div>

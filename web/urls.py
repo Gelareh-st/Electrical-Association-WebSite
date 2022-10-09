@@ -17,7 +17,7 @@ urlpatterns = [
     path("Manage/Master", views.Manage_Master.as_view(),
          name = "Manage_Master"),
     path("Manage/Member", views.Manage_Member.as_view(),
-         name = "Manage_Member"),
+         name = "Manage_Members"),
     
     path("Manage/Course", views.Manage_Courses.as_view(),
          name = "Manage_Course"),

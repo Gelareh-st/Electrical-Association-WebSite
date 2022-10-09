@@ -12,9 +12,12 @@ from django.contrib.auth.mixins import (
 from web.forms import (
             MasterForm,
             PeopleForm,
-            MemberForm
+            MembersForm
             )
-from web.Auxiliary_functions import get_urls
+from web.Auxiliary_functions import (
+             get_initial,
+             get_urls
+             )
 from django.urls import reverse_lazy
 from django.views import (
              View,
@@ -94,6 +97,7 @@ class Manage_Master(LoginRequiredMixin, generic.TemplateView):
         context['Delete_Address'] = "del_Master"
         context['Edit_Address'] = "Edit_Master"
         context['Edit'] = False
+        context['title'] = "مدیریت اساتید"
         return context
     
     def post(self, request, **kwargs):
@@ -104,6 +108,7 @@ class Manage_Master(LoginRequiredMixin, generic.TemplateView):
         if People_Form.is_valid():
             Person = People_Form
             Person.save()
+            Person = People.objects.get(name = request.POST["name"])
         else:
             Person = People.objects.get(name = request.POST["name"])
         Masters = Master.objects.create(Resume_Link = request.POST['Resume_Link'], Performance_result = 0, Info = Person)
@@ -122,44 +127,7 @@ class delete_Master(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteV
     permission_required = "Master.delete_post"
     success_message = {"message":"object_deleted_successfuly"}
     
-#Forms for define the form that we using    
-forms = {"People_Form": PeopleForm(), "Master_Form": MasterForm(), "Member_Form": MemberForm()}
-class Update_People(LoginRequiredMixin ,generic.TemplateView):
-    template_name = "manage_members.html"
-    People_Form = PeopleForm()
-    Master_Form = MasterForm()
 
-    def get_context_data(self, **kwargs):
-        child_initials = {}
-        model = kwargs["model"]
-        child_form = forms[f"{model.__name__}_Form"]
-        print(child_form)
-        context = super().get_context_data(**kwargs)
-        object = model.objects.get(id = kwargs['pk'])
-        if model.__name__== "Master":
-            child_initials = {'Resume_Link':object.Resume_Link}
-        else:
-            child_initials = {"position": object.position}
-        context['Items'] = model.objects.all()
-        context[f'{model.__name__}_Form'] = child_form(initial = {'Resume_Link':object.Resume_Link})
-        context['People_Form'] = PeopleForm(initial={'name':object.Info.name, 'EmailAddress':object.Info.EmailAddress, 'Picture_URL':object.Info.Picture_URL,
-                                                       'LinkedIn':object.Info.LinkedIn, 'GitHub':object.Info.GitHub})
-        context['courses'] = Courses.objects.all()
-        context['Delete_Address'] = f"del_{model.__name__}"
-        context['Edit_Address'] = f"Edit_{model.__name__}"
-        context['Edit'] = True
-        return context
-    def post(self, request,  **kwargs):
-        master = Master.objects.get(id = kwargs["pk"])
-        instance = get_object_or_404(People, id = master.Info.id)
-        #Person Update Info
-        person = PeopleForm(request.POST or None, instance = instance)
-        master_update_info = MasterForm(request.POST, instance = master)
-        if person.is_valid():
-            person.save()
-        if master_update_info.is_valid():
-            master_update_info.save()
-        return redirect("Manage_Master")
 class Manage_Member(generic.TemplateView, SuccessMessageMixin):
     
     template_name = "manage_members.html"
@@ -172,20 +140,23 @@ class Manage_Member(generic.TemplateView, SuccessMessageMixin):
     def get_context_data(self,   **kwargs):
         context = super().get_context_data(**kwargs)
         context["People_Form"] = PeopleForm()
-        context["Member_Form"]=MemberForm()
+        context["Members_Form"]=MembersForm()
         context["Items"] = Members.objects.all()
         context['Delete_Address'] = "del_Member"
         context['Edit_Address'] = "Edit_Member"
+        context['Edit'] = False
+        context['title'] = "مدیریت اعضای انجمن"
         return context
 
     def post(self, request, **kwargs):
         People_Form = PeopleForm(request.POST)
-        Member_Form = MemberForm(request.POST)
+        Member_Form = MembersForm(request.POST)
         if People_Form.is_valid():
             Person = People_Form.save()
             Person.category = "Member"
             Person.save()
         else:
+            print("Here")
             Person = People.objects.get(name = request.POST["name"])
         Member = Members.objects.create(position = request.POST['position'], Info = Person)
         if Member:
@@ -193,20 +164,58 @@ class Manage_Member(generic.TemplateView, SuccessMessageMixin):
         else:
             requests.post(message_url, {"message":"Failed"})
         Member.save()
-        return redirect("Manage_Member")
+        return redirect("Manage_Members")
 
 class delete_Member(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView,
                     ):
     #need a layout template for manage objects and inherit them for others
     model = Members
-    success_url = reverse_lazy("Manage_Member")
+    success_url = reverse_lazy("Manage_Members")
     permission_required = "Members.delete_post"
     success_message = {"message":"object_deleted_successfuly"}
     
     def get_context_data(self):
         context = {"Address": "del_Member"}
         return context
-    #To Do: Method For Updating Member
+
+
+#Forms for define the form that we using    
+forms = {"Master_Form": MasterForm, "Members_Form": MembersForm}
+class Update_People(LoginRequiredMixin ,generic.TemplateView):
+    template_name = "manage_members.html"
+    People_Form = PeopleForm()
+    Master_Form = MasterForm()
+
+    def get_context_data(self, **kwargs):
+        child_initials = {}
+        model = kwargs["model"]
+        child_form = forms[f"{model.__name__}_Form"]
+        print(child_form)
+        context = super().get_context_data(**kwargs)
+        obj = model.objects.get(id = kwargs['pk'])
+        context['Items'] = model.objects.all()
+        context[f'{model.__name__}_Form'] = child_form(initial = get_initial(model, obj))
+        context['People_Form'] = PeopleForm(initial={'name':obj.Info.name, 'EmailAddress':obj.Info.EmailAddress, 'Picture_URL':obj.Info.Picture_URL,
+                                                       'LinkedIn':obj.Info.LinkedIn, 'GitHub':obj.Info.GitHub})
+        context['courses'] = Courses.objects.all()
+        context['Delete_Address'] = f"del_{model.__name__}"
+        context['Edit_Address'] = f"Edit_{model.__name__}"
+        context['Edit'] = True
+        context['title'] = f"Edit {model.__name__} Object"
+        return context
+    def post(self, request,  **kwargs):
+        model = kwargs["model"]
+        child_obj = model.objects.get(id = kwargs["pk"])
+        instance = get_object_or_404(People, id = child_obj.Info.id)
+        #Person Update Info
+        person = PeopleForm(request.POST or None, instance = instance)
+        child_update_info = forms[f"{model.__name__}_Form"](request.POST, instance = child_obj)
+        if person.is_valid():
+            person.save()
+        if child_update_info.is_valid():
+            child_update_info.save()
+        return redirect(f"Manage_{model.__name__}")
+
 
 
 #Procees Required Data For Main Page OF Admin View , Generic, regex

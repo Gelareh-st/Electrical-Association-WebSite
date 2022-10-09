@@ -1,0 +1,40 @@
+main{
+    height: 90vh;
+    padding: 15vh 0;
+}
+label {
+  color: #ffffff;
+}
+#div-label{
+    text-align: center;
+    font-size: xx-large;
+}
+#login-form {
+  padding: 2rem;
+  display: block;
+  width: fit-content;
+  height: 60vh;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem 0 #000;
+}
+
+#login-form *{
+    display: block;
+}
+
+input{
+    border-radius: 0.6rem;
+    border-style: none;
+    width: 20rem;
+    height: 3rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 2rem 0;
+    padding: 0 1rem;
+}
+#submit-btn{
+    background-color: var(--header_color);
+    color: #ffffff;
+    font-size: large;
+}

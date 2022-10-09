@@ -29,7 +29,7 @@ class MasterForm(ModelForm):
 
 
 
-class MemberForm(ModelForm):
+class MembersForm(ModelForm):
     class Meta:
         model = Members
         fields = ["position"]
