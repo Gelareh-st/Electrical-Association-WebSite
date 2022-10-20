@@ -13,7 +13,7 @@ class CoursesAdmin(admin.ModelAdmin):
 admin.site.register(Courses, CoursesAdmin)
 
 class MasterAdmin(admin.ModelAdmin):
-    list_display = ['name', 'EmailAddress','created_date', 'update_date', 
+    list_display = ['name', 'EmailAddress','created_date', 'update_date', 'role', 
                     'votes', 'Performance_result', 'About' , 'get_Courses']
     def get_Courses(Self, instance):
         return [course.title for course in instance.courses.all()]

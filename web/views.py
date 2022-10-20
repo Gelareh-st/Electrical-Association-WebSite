@@ -66,8 +66,8 @@ class Courses_list(generic.ListView):
 
 class Master_Detail(generic.DetailView):
     model = Master
-    template_name = "index.html"
-    context_object_name = "MAster_Detail"
+    template_name = "prof.html"
+    context_object_name = "prof"
 
 class Course_Detail(generic.DetailView):
     model = Courses

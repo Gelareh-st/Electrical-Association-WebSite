@@ -88,10 +88,12 @@ Personal Information related to People Model via Foriegn Key
 """
 
 class Master(models.Model):
+    role_choices = [('PHD','PHD'), ('Assistant', 'Assistant'), ('Reasearcher', 'Researcher')]
     Info = models.OneToOneField(People, on_delete=models.CASCADE)
     courses = models.ManyToManyField(Courses, blank=True)
     Resume_Link        = models.URLField(verbose_name = "Resume Link",
                                          max_length=200,blank=True)
+    role = models.CharField(choices = role_choices, max_length=50, blank = True)
     Performance_result = models.FloatField(verbose_name="Performance",
                                               blank= True, null = True)
     votes = models.IntegerField(verbose_name = "Votes", blank = True, default = 0)

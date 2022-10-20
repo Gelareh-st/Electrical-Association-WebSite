@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
-
+    {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/profs.css" />
-    <link rel="icon" href="img/main-logo.png">
+    <link rel="stylesheet" href="{% static 'web/vendor/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/profs.css' %}" />
+    <link rel="icon" href="{% static 'web/img/main-logo.png' %}">
     <title>اساتید | انجمن علمی مهندسی برق دانشگاه گیلان</title>
 </head>
 
@@ -19,7 +19,7 @@
         <!-- header -->
         <header class="d-flex row">
             <div class="header-title col-8 col-md-3 d-flex align-self-center align-items-center">
-                <img src="img/main-logo.png" alt="">
+                <img src="{% static 'web/img/main-logo.png' %}" alt="">
                 <p>انجمن علمی مهندسی برق <br class="d-none d-lg-block"> دانشگاه گیلان</p>
             </div>
             <!-- منوی هدر -->
@@ -43,7 +43,7 @@
         <!-- ------------------------------------------------------------------------------------------------------------------ -->
         <!-- منوی موبایل  -->
         <div id="mobile-menu">
-            <img src="img/icons8-close-50.png" alt="" id="close-mobile-menu">
+            <img src="{% static 'web/img/icons8-close-50.png' %}" alt="" id="close-mobile-menu">
             <ul class="mobile-navbar">
                 <li class="mobile-navbar-item"><a href="#">صفحه اصلی</a></li>
                 <li class="mobile-navbar-item"><a href="#">رویداد ها</a></li>
@@ -57,51 +57,40 @@
         <!-- ------------------------------------------------------------------------------------------------------------------ -->
         <!-- صفحه اصلی -->
         <main>
-            <div class="note d-flex flex-column flex-sm-row">
-                <img src="img/profile-test.svg" alt="" class="prof-pic">
-                <div>
-                    <h3>دکتر غلامرضا باقرسلیمی</h3>
-                    <h4>دانشیار</h4>
-                    <div class="member-contact">
-                        <p>آدرس ایمیل : test@gmail.com</p>
-                        <p>شماره تماس : 09111234567</p>
-                        <p>درباره استاد : دکتر غلامرضا باقرسلیمی کارشناسی خود را از دانشگاه تهران، کارشناسی ارشد را از
-                            دانشگاه تربیت مدرس و دکتری را از دانشگاه لیدز، انگلستان، در رشته مهندسی برق دریافت کرد. او
-                            اکنون دانشیار گروه مهندسی برق دانشگاه گیلان است. وی به عنوان مدیر گروه مهندسی برق، معاون
-                            آموزشی دانشکده فنی و معاون پژوهشی دانشکده فنی فعالیت داشته است. وی همچنین داوری مجلات IET
-                            Com ، IEEE Access، مجله بین المللی سیستم های مخابراتی (IJCS) ، مجله بین المللی نور و
-                            الکترونوری (Optik)، مجله فناوری های نوظهور مخابراتی (Wiley) و Radioengineering را بر عهده
-                            داشته است. کارهای پژوهشی ایشان روی تکنیک های پردازش سیگنال لایه فیزیکی در سیستم های مخابراتی
-                            تار نوری، مخابرات بی سیم نوری به ویژه مخابرات نوری مرئی متمرکز است. دکتر باقرسلیمی تاکنون
-                            بیش از 50 مقاله مجله و کنفرانس منتشر کرده و بیش از 50 دانشجوی کارشناسی ارشد را دانش آموخته
-                            کرده است.
-
-                            
-                        </p>
-                    </div>
-                </div>
-            </div>
-            {% for prof in profs %}
 
             <div class="note d-flex flex-column flex-sm-row">
-                <img src="img/{{prof.img}}" alt="" class="prof-pic">
+                <img src="{{prof.Info.Picture_URL}}" alt="" class="prof-pic">
                 <div>
-                    <h3>{{prof.name}}</h3>
+                    <h3>{{prof.Info.name}}</h3>
                     <h4>{{prof.role}}</h4>
                     <div class="member-contact">
-                        <p>آدرس ایمیل : {{prof.email}}</p>
-                        <p>شماره تماس : {{prof.number}}</p>
-                        <p>{{prof.info}}</p>
+                        <p>Email Address : {{prof.Info.EmailAddress}}</p>
+                        <p>{{prof.About}}</p>
+                        <!-- Please Design this Part . -->
+                        <a href= "{{prof.Info.GitHub}}">Github</a>
+                        <a href= "{{prof.Info.LinkedIn}}">LinkedIn</a>
+                    </div>
+                </div>
+            </div><!--
+            {% for prof in Profs %}
+
+            <div class="note d-flex flex-column flex-sm-row">
+                <img src="{{prof.Info.Picture_URL}}" alt="" class="prof-pic">
+                <div>
+                    <h3>{{prof.Info.name}}</h3>
+                    <h4>{{prof.role}}</h4>
+                    <div class="member-contact">
+                        <p>Email Address : {{prof.Info.EmailAddress}}</p>
+                        <p>{{prof.About}}</p>
                     </div>
                 </div>
             </div>
-            {{% endfor %}}
-
+            {% endfor %}-->
         </main>
         <footer class="d-flex row">
             <div class="col-12 d-flex">
-                <img src="img/GU-logo.svg" alt="" class="footer-logo">
-                <img src="img/EE-logo.png" alt="" class="footer-logo">
+                <img src="{% static 'web/img/GU-logo.svg' %}" alt="" class="footer-logo">
+                <img src="{% static 'web/img/EE-logo.png' %}" alt="" class="footer-logo">
             </div>
             <hr>
             <div class="col-12 d-flex row footer-div">
@@ -130,7 +119,7 @@
             <p>© کلیه حقوق سایت متعلق به انجمن علمی مهندسی برق دانشگاه گیلان می باشد .</p>
         </div>
     </div>
-    <script src="js/app.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
 </body>
 
 </html>
