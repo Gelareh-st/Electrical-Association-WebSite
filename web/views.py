@@ -111,7 +111,10 @@ class Manage_Master(LoginRequiredMixin, generic.TemplateView):
             Person = People.objects.get(name = request.POST["name"])
         else:
             Person = People.objects.get(name = request.POST["name"])
-        Masters = Master.objects.create(Resume_Link = request.POST['Resume_Link'], Performance_result = 0, Info = Person)
+        
+        Masters = Master_Form.save(commit=False)
+        Masters.Info = Person
+        Masters.save()
         if Masters:
             requests.post(message_url, {"message":"Master Added..."})
         else:
@@ -156,9 +159,11 @@ class Manage_Member(generic.TemplateView, SuccessMessageMixin):
             Person.category = "Member"
             Person.save()
         else:
-            print("Here")
             Person = People.objects.get(name = request.POST["name"])
-        Member = Members.objects.create(position = request.POST['position'], Info = Person)
+    #  Member = Members.objects.create(position = request.POST['position'], Info = Person)
+        Member = Member_Form.save(commit=False)
+        Member.Info = Person
+        Member.save()
         if Member:
             requests.post(message_url, {"message":"Member Added..."})
         else:
@@ -216,7 +221,11 @@ class Update_People(LoginRequiredMixin ,generic.TemplateView):
             child_update_info.save()
         return redirect(f"Manage_{model.__name__}")
 
-
+"""
+Update Performance Result Field Of Master Object Seperately without access any other fields
+"""
+class Performance_result(generic.UpdateView):
+    model = Master
 
 #Procees Required Data For Main Page OF Admin View , Generic, regex
 

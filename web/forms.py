@@ -22,9 +22,10 @@ class PeopleForm(ModelForm):
 class MasterForm(ModelForm):
     class Meta:
         model = Master
-        fields = ["Resume_Link"]
+        fields = ["Resume_Link", "About"]
         widgets = {
             'Resume_Link': forms.URLInput(attrs={'class':'form-controll'}),
+            'About': forms.Textarea(attrs={'class': 'form-controll'})
         }
 
 

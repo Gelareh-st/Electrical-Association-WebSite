@@ -1,4 +1,6 @@
 from dataclasses import fields
+from email.policy import default
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from random import choices
 from tabnanny import verbose
@@ -21,11 +23,11 @@ The Courses Model Contains name , tendency, Category, ratio, Optional_Bool
 """
 #Category Choices For People Model /The Category Field
 
-Performance_choices = ((1,"Very Bad"),
-                       (2, "Bad"),
-                       (3, "Not Bad"),
-                       (4, "Good"),
-                       (5, "AweSome"))
+Performance_choices = (("Devile","Devile"),
+                       ("Idiot", "Idiot"),
+                       ("limbo", "limbo"),
+                       ("literate", "literate"),
+                       ("Lovely", "Lovely"))
 
 class People(models.Model):
     #Unique ID For Each Person
@@ -87,11 +89,13 @@ Personal Information related to People Model via Foriegn Key
 
 class Master(models.Model):
     Info = models.OneToOneField(People, on_delete=models.CASCADE)
+    courses = models.ManyToManyField(Courses, blank=True)
     Resume_Link        = models.URLField(verbose_name = "Resume Link",
                                          max_length=200,blank=True)
-    Performance_result = models.IntegerField(verbose_name="Performance",
-                                             choices=Performance_choices, blank= True)
-    courses = models.ManyToManyField(Courses, blank=True)
+    Performance_result = models.FloatField(verbose_name="Performance",
+                                              blank= True, null = True)
+    votes = models.IntegerField(verbose_name = "Votes", blank = True, default = 0)
+    About = models.TextField(blank=True)
     class Meta:
         db_table = 'web_master'
         managed = True
@@ -100,7 +104,15 @@ class Master(models.Model):
     def __str__(self):
         return f"{self.Info.name}, {self.Info.created_date}, {self.courses}"
 
-class Members(models.Model):
+class Master_Performance_Vote(models.Model):
+    master = models.ForeignKey(Master, on_delete = models.CASCADE)
+    vote = models.CharField(verbose_name="Performance", max_length = 25,
+                                           choices = Performance_choices, blank= True)
+    class Meta:
+        verbose_name = 'Master_Performance_Vote'
+        verbose_name_plural = 'Masters_Performance_Votes'
+
+class Members(models.Model): 
     Info = models.OneToOneField(People, on_delete = models.CASCADE)
     position = models.CharField(max_length=50,verbose_name="position", blank=True)
     
