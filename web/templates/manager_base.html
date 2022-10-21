@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
-{% load static %}
+    {% load static %}
 <head>
     {% block head %}
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../static/web/vendor/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../static/web/css/style.css" />
     <link rel="stylesheet" href="../static/web/css/manage.css" />
-    <link rel="icon" href="../static/web/img/main-logo.png">
+    <link rel="icon" href="static/web/img/main-logo.png">
     {% endblock %}
     {% block title %}{% endblock %}
 </head>
@@ -40,7 +40,7 @@
         </header>
 
         <div id="side-sec">
-            <ul id="manage-nav">
+       <ul id="manage-nav">
                 <li><a href="#">میز کار</a></li>
                 <li><a href="#">رویداد ها</a></li>
                 <li><a href="#">اطلاعیه ها</a></li>
@@ -49,7 +49,7 @@
                 <li><a href="#">انجمن</a></li>
                 <li><a href="#">اساتید</a></li>
                 <li><a href="#">لینک ها</a></li>
-            </ul>
+        </ul>
         </div>
         <main>
             {% block main %}{% endblock %}

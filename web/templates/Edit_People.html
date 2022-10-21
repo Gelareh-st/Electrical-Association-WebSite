@@ -1,0 +1,29 @@
+{% extends "manager_base.html" %}
+{% block title %}
+<title>مدیریت انجمن | انجمن علمی مهندسی برق دانشگاه گیلان</title>
+{% endblock %}
+{% block main %}
+
+<div class="main-sec d-flex row align-content-start justify-content-between">
+
+    <label for="add-member">عضو جدید </label>
+    <!--Adding A Member Form-->
+    <div>
+    <form method="post" class="form-control">{% csrf_token %}
+        {{People_Form}}
+        {{Master_Form}} 
+        {{Members_Form}}
+        <input type="submit" value="Save">
+    </form> 
+    </div>
+    <label for="edit-about">ویرایش مشخصات انجمن</label>
+    <form action="#" id="edit-about">
+        <p>پاراگراف اول درباره انجمن : </p>
+        <textarea name="" id="" cols="25" rows="1"></textarea>
+        <p>پاراگراف دوم درباره انجمن : </p>
+        <textarea name="" id="" cols="25" rows="1"></textarea>
+        <br><br>
+        <input type="submit" value="ذخیره">
+    </form>
+</div>
+{% endblock %}

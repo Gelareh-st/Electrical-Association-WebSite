@@ -18,7 +18,7 @@
             <td class="icon-td edit"><button><img src="../static/web/img/icons8-edit-50.png" alt=""></button></td>
         </tr>
     </table>
-    <label for="members-table" class="col-9">{{title}}</label>
+    <!--<label for="members-table" class="col-9">{{title}}</label>-->
     <a href="#add-member" class="new-btn col-3 d-flex">
         <p>عضو جدید</p>
         <img src="../static/web/img/icons8-add-50.png" alt="">
@@ -49,10 +49,13 @@
             <td class="txt-td">{{item.Info.created_date.date}}</td>
             <td class="txt-td">{{item.position}}</td>
             <td class="icon-td see">
-                    <button type="submit">
-                        <img src="../static/web/img/icons8-eye-50.png" alt="">
-                    </button>
+ 
+        <a type="submit" href="{% url ShowAddress item.id %}">
+            <img src="../static/web/img/icons8-eye-50.png" alt="">
+        </a>
+            
         </td>
+        {{item.id}}
         {% if not Edit %}
         <td class="icon-td edit"><button>
             <a href="{% url Edit_Address item.id %}">
@@ -60,7 +63,6 @@
             </a>
         </td> 
         <td class="icon-td delete">
-            <!--must optimize for both objects Masters and Members-->
             <form method = "post" action="{% url Delete_Address item.id %}">
                 {% csrf_token %}
                 <button type="submit">
@@ -69,15 +71,14 @@
             </form>
         </td>
         
-    
-        {% endif %}
     </tr>
+        {% endif %}
         {% endfor %}
     </table>
     <label for="add-member">عضو جدید </label>
     <!--Adding A Member Form-->
     <div>
-    <form method="post" action = "" class="form-control">{% csrf_token %}
+    <form method="post" class="form-control">{% csrf_token %}
         {{People_Form}}
         {{Master_Form}} 
         {{Members_Form}}
@@ -85,7 +86,7 @@
     </form>
     </div>
     <label for="edit-about">ویرایش مشخصات انجمن</label>
-    <form action="" id="edit-about">
+    <form action="#" id="edit-about">
         <p>پاراگراف اول درباره انجمن : </p>
         <textarea name="" id="" cols="25" rows="1"></textarea>
         <p>پاراگراف دوم درباره انجمن : </p>

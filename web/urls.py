@@ -12,8 +12,13 @@ urlpatterns = [
          name="Members"),
     path(r"Courses/", views.Courses_list.as_view(),
          name = "Courses_List"),
+
+    path("Member/<int:pk>/", views.Member_Detail.as_view(),
+         name = "Member_Detail"),
+
     path("Master/<int:pk>/", views.Master_Detail.as_view(),
          name = "Master_Detail"),
+
     path("Manage/Master", views.Manage_Master.as_view(),
          name = "Manage_Master"),
     path("Manage/Member", views.Manage_Member.as_view(),
@@ -42,4 +47,6 @@ urlpatterns = [
          name = "Edit_Member"),
     path("Edit_Master/<int:pk>", views.Update_People.as_view(), kwargs = dict(model = Master),
          name = "Edit_Master"),
+#     path('notfound', views.notfound.as_view()),
+
 ]

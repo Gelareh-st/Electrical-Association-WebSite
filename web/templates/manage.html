@@ -20,7 +20,16 @@
 <button class="btn btn-info" method = "post" type="submit">
 {% endblock %}
 
+<form method="post" action = "" class="form-control">{% csrf_token %}
+    {{People_Form}}
+    {{Master_Form}} 
+    {{Members_Form}}
+    <input type="submit" value="Save">
+</form>
+
+
 <!--
+
 
     <div class="card col-12 col-md-6 col-lg-2">
         <a href="#">

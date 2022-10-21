@@ -68,7 +68,10 @@ class Master_Detail(generic.DetailView):
     model = Master
     template_name = "prof.html"
     context_object_name = "prof"
-
+class Member_Detail(generic.DetailView):
+    model = Members
+    template_name = "prof.html"
+    context_object_name = "prof"
 class Course_Detail(generic.DetailView):
     model = Courses
     template_name = "index.html"
@@ -83,6 +86,7 @@ class Manage_Master(LoginRequiredMixin, generic.TemplateView):
         #IF A MASTER EXIST RAISE AN ERROR AND HANDL IT
     http_method_names = ["get", "post", "delete"]
     template_name = "manage_members.html"
+    success_url = reverse_lazy('Manage_Master')
     model = Master
     Master_Form = MasterForm()
     People_Form = PeopleForm()
@@ -98,6 +102,7 @@ class Manage_Master(LoginRequiredMixin, generic.TemplateView):
         context['Edit_Address'] = "Edit_Master"
         context['Edit'] = False
         context['title'] = "مدیریت اساتید"
+        context['ShowAddress'] = "Master_Detail"
         return context
     
     def post(self, request, **kwargs):
@@ -111,16 +116,17 @@ class Manage_Master(LoginRequiredMixin, generic.TemplateView):
             Person = People.objects.get(name = request.POST["name"])
         else:
             Person = People.objects.get(name = request.POST["name"])
-        
+
         Masters = Master_Form.save(commit=False)
         Masters.Info = Person
         Masters.save()
+        print("Hey")
         if Masters:
             requests.post(message_url, {"message":"Master Added..."})
         else:
             requests.post(message_url, {"message":"Failed"})
         Masters.save()
-        return redirect("Manage_Master")
+        return redirect('Manage_Master')
 
 class delete_Master(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView,
                     SuccessMessageMixin
@@ -136,7 +142,6 @@ class Manage_Member(generic.TemplateView, SuccessMessageMixin):
     template_name = "manage_members.html"
     context_object_name = "Items"
     fields = ['Info', 'position']
-    success_url    = reverse_lazy("Manage_Member")
     fail_message  = "Member is Repeative or Invalid..."
     success_message = "Member added successfully..."
     
@@ -149,6 +154,7 @@ class Manage_Member(generic.TemplateView, SuccessMessageMixin):
         context['Edit_Address'] = "Edit_Member"
         context['Edit'] = False
         context['title'] = "مدیریت اعضای انجمن"
+        context['ShowAddress'] = "Member_Detail"
         return context
 
     def post(self, request, **kwargs):
@@ -187,7 +193,7 @@ class delete_Member(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteV
 #Forms for define the form that we using    
 forms = {"Master_Form": MasterForm, "Members_Form": MembersForm}
 class Update_People(LoginRequiredMixin ,generic.TemplateView):
-    template_name = "manage_members.html"
+    template_name = "Edit_People.html"
     People_Form = PeopleForm()
     Master_Form = MasterForm()
 
@@ -195,11 +201,11 @@ class Update_People(LoginRequiredMixin ,generic.TemplateView):
         child_initials = {}
         model = kwargs["model"]
         child_form = forms[f"{model.__name__}_Form"]
-        print(child_form)
         context = super().get_context_data(**kwargs)
         obj = model.objects.get(id = kwargs['pk'])
         context['Items'] = model.objects.all()
         context[f'{model.__name__}_Form'] = child_form(initial = get_initial(model, obj))
+        
         context['People_Form'] = PeopleForm(initial={'name':obj.Info.name, 'EmailAddress':obj.Info.EmailAddress, 'Picture_URL':obj.Info.Picture_URL,
                                                        'LinkedIn':obj.Info.LinkedIn, 'GitHub':obj.Info.GitHub})
         context['courses'] = Courses.objects.all()
@@ -239,7 +245,12 @@ class Manage(LoginRequiredMixin,
         context = super().get_context_data(**kwargs)
         context['url_patterns'] = get_urls()
         return context
-
+# class notfound(generic.TemplateView):
+#     template_name = "manage_members.html"
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['picture'] = "Picture"
+#         return context
 # Manage Cousrses CRUD
 class Manage_Courses(LoginRequiredMixin, generic.CreateView):
     model = Courses
