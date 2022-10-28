@@ -1,3 +1,4 @@
+from http.client import HTTPResponse
 import requests
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import (
@@ -24,7 +25,7 @@ from django.views import (
              generic
              )
 from web.models import (Courses,
-            Master,
+            Master, Master_Performance_Vote,
             Members,
             People
             )
@@ -68,6 +69,21 @@ class Master_Detail(generic.DetailView):
     model = Master
     template_name = "prof.html"
     context_object_name = "prof"
+    def vote_status(self, request):
+        return Master_Performance_Vote.objects.filter(voter = request.session)
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        context['voted'] = False
+        if self.vote_status:
+            context['voted'] = True
+        return self.render_to_response(context)
+    def post(self, request, **kwargs):
+        if not self.vote_status:
+           master = self.object
+           vote = Master_Performance_Vote.objects.create()
+           vote.voter = request.session
+           vote.            
 class Member_Detail(generic.DetailView):
     model = Members
     template_name = "prof.html"
@@ -216,6 +232,7 @@ class Update_People(LoginRequiredMixin ,generic.TemplateView):
         return context
     def post(self, request,  **kwargs):
         model = kwargs["model"]
+        print(request.session)
         child_obj = model.objects.get(id = kwargs["pk"])
         instance = get_object_or_404(People, id = child_obj.Info.id)
         #Person Update Info
@@ -234,7 +251,7 @@ class Performance_result(generic.UpdateView):
     model = Master
 
 #Procees Required Data For Main Page OF Admin View , Generic, regex
-
+sessionss = []
 class Manage(LoginRequiredMixin,
              SuccessMessageMixin,
              generic.TemplateView):
@@ -245,15 +262,10 @@ class Manage(LoginRequiredMixin,
         context = super().get_context_data(**kwargs)
         context['url_patterns'] = get_urls()
         return context
-# class notfound(generic.TemplateView):
-#     template_name = "manage_members.html"
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['picture'] = "Picture"
-#         return context
-# Manage Cousrses CRUD
+
 class Manage_Courses(LoginRequiredMixin, generic.CreateView):
     model = Courses
     template_name = "manage_members.html"
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs)
+

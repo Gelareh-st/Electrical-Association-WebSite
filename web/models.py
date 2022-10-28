@@ -108,8 +108,9 @@ class Master(models.Model):
 
 class Master_Performance_Vote(models.Model):
     master = models.ForeignKey(Master, on_delete = models.CASCADE)
-    vote = models.CharField(verbose_name="Performance", max_length = 25,
-                                           choices = Performance_choices, blank= True)
+    like = models.BooleanField(verbose = "Liked ?", default = False)
+    dislike = models.BooleanField(verbose = "Dislike ?", default = False)
+    voter = models.TextField(verbose_name="Voter_session", null = True)
     class Meta:
         verbose_name = 'Master_Performance_Vote'
         verbose_name_plural = 'Masters_Performance_Votes'
