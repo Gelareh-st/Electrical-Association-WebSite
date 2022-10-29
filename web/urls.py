@@ -47,7 +47,6 @@ urlpatterns = [
          name = "Edit_Member"),
     path("Edit_Master/<int:pk>", views.Update_People.as_view(), kwargs = dict(model = Master),
          name = "Edit_Master"),
-#     path("",),
-#     path('notfound', views.notfound.as_view()),
-#     path('Update', views.Update_Master.as_view,name="Update")
+    path("Like_Master/<int:pk>/", views.VoteOnMaster.as_view(), kwargs=dict(choice = "Like"), name = "Like_MASTER"),
+    path("DisLike_Master/<int:pk>/", views.VoteOnMaster.as_view(), kwargs=dict(choice = "Dislike"), name = "DisLike_MASTER")
 ]

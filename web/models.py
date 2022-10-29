@@ -1,5 +1,6 @@
 from dataclasses import fields
 from email.policy import default
+from time import perf_counter
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from random import choices
@@ -23,11 +24,8 @@ The Courses Model Contains name , tendency, Category, ratio, Optional_Bool
 """
 #Category Choices For People Model /The Category Field
 
-Performance_choices = (("Devile","Devile"),
-                       ("Idiot", "Idiot"),
-                       ("limbo", "limbo"),
-                       ("literate", "literate"),
-                       ("Lovely", "Lovely"))
+Performance_choices = (("Like","Like"),
+                       ("Dislike", "Dislike"),)
 
 class People(models.Model):
     #Unique ID For Each Person
@@ -108,9 +106,10 @@ class Master(models.Model):
 
 class Master_Performance_Vote(models.Model):
     master = models.ForeignKey(Master, on_delete = models.CASCADE)
-    like = models.BooleanField(verbose = "Liked ?", default = False)
-    dislike = models.BooleanField(verbose = "Dislike ?", default = False)
+    vote = models.CharField(max_length = 10, choices = Performance_choices)
     voter = models.TextField(verbose_name="Voter_session", null = True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
     class Meta:
         verbose_name = 'Master_Performance_Vote'
         verbose_name_plural = 'Masters_Performance_Votes'

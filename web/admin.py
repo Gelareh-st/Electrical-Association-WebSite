@@ -42,7 +42,7 @@ class MemberAdmin(admin.ModelAdmin):
 admin.site.register(Members, MemberAdmin)
 
 class Master_PVAdmin(admin.ModelAdmin):
-    list_display = ['get_master', 'vote']
+    list_display = ['get_master', 'vote', 'voter', 'created_date', 'updated_date']
     def get_master(self, instance):
         return f"{instance.master.Info.name}, {instance.master.Info.created_date}"
 admin.site.register(Master_Performance_Vote, Master_PVAdmin)

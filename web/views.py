@@ -1,4 +1,6 @@
+from contextlib import nullcontext
 from http.client import HTTPResponse
+import json
 import requests
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import (
@@ -6,6 +8,12 @@ from django.shortcuts import (
             redirect,
             get_object_or_404
             )
+from rest_framework.response import Response
+from rest_framework import (
+                    views,
+                    viewsets,
+                    permissions
+                            )
 from django.contrib.auth.mixins import (
             LoginRequiredMixin,
             PermissionRequiredMixin
@@ -69,21 +77,55 @@ class Master_Detail(generic.DetailView):
     model = Master
     template_name = "prof.html"
     context_object_name = "prof"
-    def vote_status(self, request):
-        return Master_Performance_Vote.objects.filter(voter = request.session)
+    def vote_status(self, request, kwargs):
+        return requests.get(f"Like_Master/{kwargs['pk']}")
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
-        context['voted'] = False
+        context['liked'] = False
+        context['disliked'] = False
         if self.vote_status:
-            context['voted'] = True
+            context['liked'] = True
         return self.render_to_response(context)
+# LIKE OR DISLIKE THE MASTER VIEW
+class VoteOnMaster(views.APIView):
+    #aPI view for create a vote on master
+    Model = Master
+    def get_master(self, request, **kwargs):
+        master = Master.objects.get(id = kwargs["pk"])
+        return master 
+
+    def get(self, request, **kwargs):
+        Voter = request.session.session_key
+        master = self.get_master(request, **kwargs)        
+        voted = Master_Performance_Vote.objects.filter(voter = Voter, master = master)
+        if voted:
+            print(voted[0].vote)
+            Result = dict({'voted one': voted[0].master.Info.name, 'liked': voted[0].vote == 'Like',
+                        'dislike': voted[0].vote == 'Dislike', 'Voter_Session_Key': voted[0].voter})   
+        else:
+            Result = None
+        return Response(Result)
     def post(self, request, **kwargs):
-        if not self.vote_status:
-           master = self.object
-           vote = Master_Performance_Vote.objects.create()
-           vote.voter = request.session
-           vote.            
+        master = self.get_master(request, **kwargs)
+        Voter = request.session.session_key
+        # check the existance of the MPV object , its returns a list of filtered objects
+        existance = Master_Performance_Vote.objects.filter(voter = Voter, master = master)
+        choice = kwargs['choice']
+        if not existance:
+            obj = Master_Performance_Vote.objects.create(master = master)
+            obj.voter = request.session.session_key
+            obj.vote = choice
+            obj.save()
+            return Response({'status_code':200})
+        elif choice != existance[0].vote:
+            existance[0].vote = choice
+            existance[0].save()
+            return Response({'status_code':201})
+        else:
+            existance[0].delete()
+            return Response({'status_code':202})
+
 class Member_Detail(generic.DetailView):
     model = Members
     template_name = "prof.html"
@@ -244,11 +286,11 @@ class Update_People(LoginRequiredMixin ,generic.TemplateView):
             child_update_info.save()
         return redirect(f"Manage_{model.__name__}")
 
-"""
-Update Performance Result Field Of Master Object Seperately without access any other fields
-"""
-class Performance_result(generic.UpdateView):
-    model = Master
+# """
+# Update Performance Result Field Of Master Object Seperately without access any other fields
+# """
+# class Performance_result(generic.UpdateView):
+#     model = Master
 
 #Procees Required Data For Main Page OF Admin View , Generic, regex
 sessionss = []
