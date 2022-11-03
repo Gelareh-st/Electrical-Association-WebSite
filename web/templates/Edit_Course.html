@@ -1,0 +1,15 @@
+{% extends "manager_base.html" %}
+{% block title %}
+<title>مدیریت انجمن | انجمن علمی مهندسی برق دانشگاه گیلان</title>
+{% endblock %}
+{% block main %}
+
+<div class="main-sec d-flex row align-content-start justify-content-between">
+    <div>
+    <form method="post" class="form-control">{% csrf_token %} 
+        {{Form}}
+        <input type="submit" value="Save">
+    </form> 
+    </div>
+</div>
+{% endblock %}

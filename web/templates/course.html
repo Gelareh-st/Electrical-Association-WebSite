@@ -1,0 +1,33 @@
+{% extends 'base_show.html' %}
+
+
+{% block title %}
+    {{title}}
+{% endblock title %}
+    
+
+{% block main %}
+<main>
+    {% comment %} clean this mess please :) {% endcomment %}
+    <div class="note d-flex flex-column flex-sm-row">
+        <div>
+            <h1>Title : {{Course.title}} <h1>
+        </div>  
+        <div>
+            <h2>Unit : {{Course.Unit}} <h2>
+        </div>
+        <div>
+            <h2>Tendency : {{Course.Tendency}} <h2>
+        </div>
+        <div>
+            <h2>Prerequisite : {{Course.Prerequisite}} <h2>
+        </div>
+        <div>
+            <h2>Simultaneous : {{Course.Simultaneous}} <h2>
+        </div>
+        
+            </div>
+        </div>
+</main>
+{% endblock main %}
+    

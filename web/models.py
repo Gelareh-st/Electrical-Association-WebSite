@@ -1,12 +1,13 @@
 from dataclasses import fields
 from email.policy import default
 from time import perf_counter
+from tracemalloc import start
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from random import choices
 from tabnanny import verbose
 from tkinter import CASCADE
-from turtle import title
+from turtle import end_fill, title
 from unicodedata import category
 from django.db import models
 
@@ -59,27 +60,6 @@ class People(models.Model):
         return f"{self.id}:{self.name}/{self.category}"
 
 
-
-class Courses(models.Model):
-    class Meta:
-        verbose_name = 'Course'
-        verbose_name_plural = 'Courses'
-    id = models.AutoField(verbose_name="ID",
-                                    primary_key=True)
-    title = models.CharField(verbose_name="Tilte",
-                                    max_length=15)
-    description = models.CharField(verbose_name="Description",
-                                    max_length=150)
-    Unit = models.IntegerField(verbose_name="Unit")
-    Prerequisite = models.CharField(verbose_name="prerequisite",
-                                    max_length=36)
-    Simultaneous = models.CharField(verbose_name="Simultaneous",
-                                    max_length=36)
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
-    def __str__(self):
-        return f"""{self.title} / {self.Unit}/ {self.Simultaneous},
-        create_Date:{self.created_date}, Update_date:{self.updated_date}"""
 """
 Masters Information`s such as Resume Link/ 
 Personal Information related to People Model via Foriegn Key
@@ -88,7 +68,6 @@ Personal Information related to People Model via Foriegn Key
 class Master(models.Model):
     role_choices = [('PHD','PHD'), ('Assistant', 'Assistant'), ('Reasearcher', 'Researcher')]
     Info = models.OneToOneField(People, on_delete=models.CASCADE)
-    courses = models.ManyToManyField(Courses, blank=True)
     Resume_Link        = models.URLField(verbose_name = "Resume Link",
                                          max_length=200,blank=True)
     role = models.CharField(choices = role_choices, max_length=50, blank = True)
@@ -102,7 +81,7 @@ class Master(models.Model):
         verbose_name = 'Master'
         verbose_name_plural = 'Masters'
     def __str__(self):
-        return f"{self.Info.name}, {self.Info.created_date}, {self.courses}"
+        return f"{self.Info.name}, {self.Info.created_date}"
 
 class Master_Performance_Vote(models.Model):
     master = models.ForeignKey(Master, on_delete = models.CASCADE)
@@ -123,3 +102,51 @@ class Members(models.Model):
         verbose_name_plural = 'Members'
     def __str__(self):
        return f"{self.Info.name}"
+
+
+class Courses(models.Model):
+    """
+    The all Courses in the faculty
+    """
+    tendencies = [('Unknown', 'Unknown'),
+                  ('Electronics', 'Electronics'), 
+                  ('Power & energy', 'Power & energy'),
+                  ('Telecommunications', 'Telecommunications'),
+                  ('Automation & control', 'Automation & control'),
+                  ]
+    title = models.CharField(verbose_name="Tilte",
+                                    max_length=15)
+    description = models.CharField(verbose_name="Description",
+                                    max_length=150)
+    tendency = models.CharField(max_length = 30, choices = tendencies, default = "Unknown")
+    Unit = models.IntegerField(verbose_name="Unit")
+    Prerequisite = models.CharField(verbose_name="prerequisite",
+                                    max_length=36, default = None, blank=True, null=True)
+    Simultaneous = models.CharField(verbose_name="Simultaneous",
+                                    max_length=36, default = None,blank=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+    class Meta:
+        verbose_name = 'Course'
+        verbose_name_plural = 'Courses'
+    def __str__(self) :
+        return f"{self.title}/ {self.Unit}/ {self.tendency}"
+
+import datetime
+class semester_courses(models.Model):
+    year = datetime.datetime.now().year
+    semester = [(f'{year}_Meher', f'{year}_Meher'),
+                (f'{year}_Bahman',f'{year}_Bahman')]
+    """
+    The Courses in the present , past and feature semesters
+    and its notes
+    """
+    master = models.ForeignKey("Master", verbose_name = "Master", on_delete = models.CASCADE)
+    course = models.ForeignKey("Courses", verbose_name= "Courses", on_delete=models.CASCADE)
+    notes = models.URLField(verbose_name = "Notes", max_length=200)
+    start = models.CharField(verbose_name = "semester", choices = semester, max_length=50)
+    created_date = models.DateTimeField(auto_now_add = True)
+    updated_date = models.DateTimeField(auto_now = True)
+    class Meta:
+        verbose_name = 'semester_course'
+        verbose_name_plural = 'semester_courses'
