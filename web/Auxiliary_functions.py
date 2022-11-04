@@ -10,10 +10,33 @@ def get_urls():
 #----------------------------------------------------------------------
 
 #Return Initial Fields as a dictionary for Member and Master Model
-
+from django.forms.models import model_to_dict
 def get_initial(model, obj):
-    if model.__name__== "Master":
-        initial = {"Resume_Link": obj.Resume_Link}
-    else:
-        initial = {"position": obj.position}
-    return initial
+    initials = {
+                'People': model_to_dict(obj, fields=['name', 'Picture_URL', 'EmailAddress','LinkedIn', 'GitHub']),
+                          
+                'Master':
+                            model_to_dict(obj, fields = ['Resume_Linke', 'About'])
+                         ,
+                'Members': 
+                            model_to_dict(obj, fields = ['position'])
+                           ,
+                'Courses': 
+                            model_to_dict(obj, fields = ['title', 'description', 'tendency', 'Unit',
+                                            'Prerequisite', 'Simultaneous'])
+                           ,
+                'semester_courses':
+                            model_to_dict(obj, fields =['master', 'course', 'notes', 'start'])
+                           ,
+                }
+    return initials[model]
+
+            
+
+
+def choice_Maker(model):
+    print(type(list(model.objects.all())[0]))
+    choices = list(map(lambda item: (item, item), list(model.objects.all())))
+    print('There')
+    print(type(choices[0][0]))
+    return choices

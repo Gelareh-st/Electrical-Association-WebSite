@@ -148,5 +148,5 @@ class semester_courses(models.Model):
     created_date = models.DateTimeField(auto_now_add = True)
     updated_date = models.DateTimeField(auto_now = True)
     class Meta:
-        verbose_name = 'semester_course'
+        verbose_name = 'Semester'
         verbose_name_plural = 'semester_courses'

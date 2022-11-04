@@ -1,6 +1,8 @@
 from dataclasses import fields
 from django import forms
 from django.forms import ModelForm
+
+from web.Auxiliary_functions import choice_Maker
 from .models import (
                      Courses,
                      People,
@@ -61,15 +63,9 @@ class CoursesForm(ModelForm):
 
 import datetime
 class SemesterForm(ModelForm):
-    year = datetime.datetime.now().year
-    semester = [(f'{year}_Meher', f'{year}_Meher'),
-                (f'{year}_Bahman',f'{year}_Bahman')]
-    master = forms.ChoiceField(choices = Master.objects.all())
-    course = forms.ChoiceField(choices = semester_courses.objects.all())
-    start = forms.CharField(max_length= 20, choices = semester)
-    notes = forms.URLField(max_length=200, blank=True, default=None)
     class Meta:
-        model = semester_courses  
+        model = semester_courses
+        fields = ['master', 'course', 'notes', 'start']  
         managed = True
         verbose_name = 'Semester_Course'
         verbose_name_plural = 'Semester_Courses'

@@ -25,7 +25,8 @@ from web.forms import (
             CoursesForm,
             MasterForm,
             PeopleForm,
-            MembersForm
+            MembersForm,
+            SemesterForm
             )
 from web.Auxiliary_functions import (
              get_initial,
@@ -39,7 +40,7 @@ from django.views import (
 from web.models import (Courses,
             Master, Master_Performance_Vote,
             Members,
-            People
+            People, semester_courses
             )
 
 message_url = "http://localhost:8000/apimessage/"
@@ -304,24 +305,27 @@ class Manage(LoginRequiredMixin,
         context['url_patterns'] = get_urls()
         return context
 
-
-class Manage_Courses(LoginRequiredMixin, generic.TemplateView):
-    form_class = CoursesForm
-    model = Courses
-    template_name = "manage_Courses.html"
+class Manage_Semester_Courses(LoginRequiredMixin, generic.TemplateView):
+    """
+    Prepair Manage Page for Courses and Semester_courses Objects
+    """
+    template_name = "manage_Semester&Courses.html"
     def get_context_data(self, **kwargs):
-        field_names = map(lambda item : item.name, list(self.model._meta.fields))
-        kwargs.update(dict(fields_list = field_names))
-        kwargs.update(dict(object_list = self.model.objects.all()))
+        context = super().get_context_data(**kwargs)
+        form_class = context['form_class']
+        model = context['model']
+        field_names = map(lambda item : item.name, list(model._meta.fields))
+        kwargs.update(dict(fields_names = field_names))
+        kwargs.update(dict(object_list = model.objects.all()))
         kwargs.update(dict(Edit = False))
-        kwargs.update(dict(model_name = self.model.__name__))
-        kwargs.update(dict(Show_Address = 'Course_Detail'))
-        kwargs.update(dict(create_address = 'Create_Course'))
-        kwargs.update(dict(edit_address = 'Edit_Course'))
-        kwargs.update(dict(delete_address = 'Delete_Course'))
-        kwargs.update(dict(Form = self.form_class))
-        print(f"object fields: {self.model._meta.fields}")
+        kwargs.update(dict(model_name = model.__name__))
+        kwargs.update(dict(Show_Address = f'{model._meta.verbose_name.title()}_Detail'))
+        kwargs.update(dict(create_address = f'Create_{model._meta.verbose_name.title()}'))
+        kwargs.update(dict(edit_address = f'Edit_{model._meta.verbose_name.title()}'))
+        kwargs.update(dict(delete_address = f'Delete_{model._meta.verbose_name.title()}'))
+        kwargs.update(dict(Form = form_class))
         return super().get_context_data(**kwargs)
+
 
 class Create_Courses(LoginRequiredMixin, generic.CreateView):
     model = Courses
@@ -335,54 +339,54 @@ class DeleteCourse(LoginRequiredMixin, generic.DeleteView):
     fields = [
         'title', 'description', 'tendency', 'Unit', 'Prerequisite', 'Simultaneous'
     ]
-    success_url = reverse_lazy("Manage_Course")
-    permission_required = "Members.delete_post"
+    success_url = reverse_lazy(f"Manage_{model._meta.verbose_name.title()}")
+    permission_required = "Courses.delete_post"
     success_message = {"message":"object_deleted_successfuly"}
 
 
-class Update_Course(LoginRequiredMixin ,generic.TemplateView):
-    template_name = "Edit_Course.html"
+
+class Create_Semester_Object(LoginRequiredMixin, generic.CreateView):
+    model = semester_courses
+    form_class = SemesterForm
+    queryset = semester_courses.objects.all()
+    success_url = reverse_lazy('Manage_Semester')
+
+ 
+class Update_Semester_Courses(LoginRequiredMixin, generic.TemplateView):
+    """
+    Update Method for semester_courses and Courses object.
+    """
+    forms = {'Courses': CoursesForm, 'semester_courses':SemesterForm}
+    template_name = "Edit_Semester&Course.html"
     def get_context_data(self, **kwargs):
         model = kwargs["model"]
         context = super().get_context_data(**kwargs)
         obj = model.objects.get(id = kwargs['pk'])
         context['Items'] = model.objects.all()
-        context['Form'] = CoursesForm(initial = {'title' :obj.title, 'description': obj.description, 
-                                               'tendency': obj.tendency, 'Unit': obj.Unit, 'Prerequisite': obj.Prerequisite, 'Simultaneous': obj.Simultaneous})
-        context['courses'] = Courses.objects.all()
+        # Chalange for Merging
+        context['Form'] = self.forms[model.__name__](initial = get_initial(model.__name__, obj))
         context['Edit'] = True
         context['title'] = f"Edit {model.__name__} Object"
         return context
     def post(self, request, **kwargs):
         model = kwargs["model"]
-        instance = get_object_or_404(Courses, id = kwargs['pk'])
-        course = CoursesForm(request.POST or None, instance = instance)
-        if course.is_valid():
-            course.save()
+        instance = get_object_or_404(model, id = kwargs['pk'])
+        form = self.forms[model.__name__](request.POST or None, instance = instance)
+        if form.is_valid():
+            form.save()
         else : 
             return HTTPResponse("Somthing get Wrong Try Again")
-        return redirect("Manage_Course")
+        return redirect(f"Manage_{model._meta.verbose_name.title()}")
 
-class Manage_Courses(LoginRequiredMixin, generic.TemplateView):
-    form_class = CoursesForm
-    model = Courses
-    template_name = "manage_Courses.html"
-    def get_context_data(self, **kwargs):
-        field_names = map(lambda item : item.name, list(self.model._meta.fields))
-        kwargs.update(dict(fields_list = field_names))
-        kwargs.update(dict(object_list = self.model.objects.all()))
-        kwargs.update(dict(Edit = False))
-        kwargs.update(dict(model_name = self.model.__name__))
-        kwargs.update(dict(Show_Address = 'Course_Detail'))
-        kwargs.update(dict(create_address = 'Create_Course'))
-        kwargs.update(dict(edit_address = 'Edit_Course'))
-        kwargs.update(dict(delete_address = 'Delete_Course'))
-        kwargs.update(dict(Form = self.form_class))
-        print(f"object fields: {self.model._meta.fields}")
-        return super().get_context_data(**kwargs)
+class Delete_Semester_Course(LoginRequiredMixin, generic.DeleteView): 
+    #need a layout template for manage objects and inherit them for others
+    model = semester_courses
+    fields = list(map(lambda item : item.name, list(model._meta.fields)))
+    success_url = reverse_lazy(f"Manage_{model._meta.verbose_name.title()}")
+    permission_required = "semester_courses.delete_post"
+    success_message = {"message":"object_deleted_successfuly"}
 
-class Create_Semester_Object(LoginRequiredMixin, generic.CreateView):
+class Semester_Detail(LoginRequiredMixin, generic.DeleteView):
     pass
-
 
 

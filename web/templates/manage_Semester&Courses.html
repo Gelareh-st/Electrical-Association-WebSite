@@ -18,7 +18,7 @@
     <table id="members-table" class="col-12">
         <tr>
             {% if object_list %}
-            {% for item in fields_list %}
+            {% for item in fields_names %}
                 
                     {% if item != 'description' %}
                        <th> {{item}} </th>
@@ -37,6 +37,7 @@
         {% endif %}
         {% for item in object_list %}
         <tr>
+            {% if model_name == "Courses" %}
             <td class="txt-td">{{item.id}}</td>
             <td class="txt-td">{{item.title}}</td>
             <td class="txt-td">{{item.tendency}}</td>
@@ -45,6 +46,18 @@
             <td class="txt-td">{{item.Simultaneous}}</td>
             <td class="txt-td">{{item.created_date}}</td>
             <td class="txt-td">{{item.updated_date}}</td>
+            {% endif %}
+            
+            {% if model_name == "semester_courses" %}
+            <td class="txt-td">{{item.id}}</td>
+            <td class="txt-td">{{item.master}}</td>
+            <td class="txt-td">{{item.course}}</td>
+            <td class="txt-td"><a href="{{item.notes}}" class= "btn btn_secondary">Notes</a></td>
+            <td class="txt-td">{{item.start}}</td>
+            <td class="txt-td">{{item.created_date}}</td>
+            <td class="txt-td">{{item.updated_date}}</td>
+            {% endif %}
+                
             <td class="icon-td see">
                 <a type="submit" href="{% url Show_Address  item.id %}">
                     <img src="../static/web/img/icons8-eye-50.png" alt="">
